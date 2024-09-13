@@ -42,3 +42,31 @@ def num_of_first_el_while(array)
 
 	return "Array not containts of positive elements"
 end
+
+
+#Задание6
+def read_array(path)
+	array = File.read(path).split.map(&:to_i)
+end
+
+if ARGV.length ==2 then 
+	array=read_array(ARGV[1])
+	if array.size==0 then 
+		puts "Array is empty."
+	end
+
+	case ARGV[0].to_i
+	when 1
+		puts "Min for: #{min_for(array)}"
+	when 2
+		puts "Min while: #{min_while(array)}"
+	when 3
+		puts "Num of first positive elem for: #{num_of_first_el_for(array)}"
+	when 4
+		puts "Num of first positive elem while: #{num_of_first_el_while(array)}"
+	else
+		puts "Not existed action!"
+end
+else 
+	puts "Insert 2 args of programm!"
+end
