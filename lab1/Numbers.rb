@@ -14,7 +14,17 @@ def not_divisible_by3(number)
 	return amount
 end
 
-
+# 2 подпункт
+def min_odd_digit_of_number(number)
+	res_digit = 11
+	while number > 0
+		digit = number%10
+		number /= 10
+		if digit < res_digit && digit%2!=0 then res_digit=digit end
+	end
+	if res_digit==11 then return "Число не содержит нечетные цифры" end
+	return res_digit
+end
 
 
 
