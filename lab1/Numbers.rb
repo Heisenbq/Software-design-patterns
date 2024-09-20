@@ -79,4 +79,4 @@ def sum_of_dividers_mutually_primes(number)
 	return sum_of_div
 end
 
-
+puts sum_of_dividers_mutually_primes(gets.chomp.to_i)
