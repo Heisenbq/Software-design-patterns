@@ -6,7 +6,7 @@ class Student
     @id = id
     @surname = surname
     @first_name = first_name
-    @last_name = middle_name
+    @last_name = last_name
     @phone = phone
     @telegram = telegram
     @email = email
@@ -91,5 +91,9 @@ class Student
   # Сеттер для GitHub
   def github=(github)
     @github = github
+  end
+
+  def to_s
+    " ID: #{@id}\n ФИО: #{@surname} #{@first_name} #{@last_name}\n Телефон: #{@phone}\n Телеграм: #{@telegram}\n Почта: #{@email}\n Git: #{@github}"
   end
 end
