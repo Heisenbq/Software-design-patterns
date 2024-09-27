@@ -2,11 +2,14 @@ class Student
   attr_accessor :phone, :telegram, :email, :github, :id, :surname, :first_name, :last_name
   
     
-  def initialize(surname,first_name,last_name, args)
+  def initialize(args)
     @id = args[:id]
-    @surname = surname
-    @first_name = first_name
-    @last_name = last_name
+    if (!args[:surname] || !args[:first_name] || !args[:last_name]) then
+      raise "Exception some of attributes not given"
+    end 
+    @surname = args[:surname]
+    @first_name = args[:first_name]
+    @last_name = args[:last_name]
     @phone = args[:phone]
     @telegram = args[:telegram]
     @email = args[:email]
