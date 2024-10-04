@@ -11,10 +11,7 @@ class Student
     self.surname = args[:surname]
     self.first_name = args[:first_name]
     self.last_name = args[:last_name]
-    self.phone = args[:phone]
-    self.telegram = args[:telegram]
-    self.email = args[:email]
-    self.github = args[:github]
+    set_contacts(github: args[:github],email: args[:email],telegram: args[:telegram],phone: args[:phone])
   end
 
   def surname=(surname)
@@ -37,35 +34,13 @@ class Student
     end
     @last_name = last_name
   end
-
-  def phone=(phone)
-    if !valid_phone?(phone)
-      raise  ArgumentError, "Not valid phone number"
-    end 
-    @phone = phone
-  end
-
-  def email=(email)
-    if !valid_email?(email)
-      raise ArgumentError, "Invalid email format"
-    end
-    @email = email
-  end
-
-  def telegram=(telegram)
-    if !valid_telegram?(telegram)
-      raise ArgumentError, "Invalid Telegram username"
-    end
-    @telegram = telegram
-  end
-
-  def github=(github)
-    if !valid_github?(github)
-      raise ArgumentError, "Invalid GitHub profile URL"
-    end
-    @github = github
-  end
   
+  def set_contacts(contacts)
+    self.telegram = contacts[:telegram]
+    self.email = contacts[:email]
+    self.github = contacts[:github]
+    self.phone = contacts[:phone]
+  end
   def to_s
     " ID: #{@id}\n ФИО: #{@surname} #{@first_name} #{@last_name}\n Телефон: #{@phone}\n Телеграм: #{@telegram}\n Почта: #{@email}\n Git: #{@github}"
   end
@@ -87,4 +62,34 @@ class Student
   def valid_github?(github)
     !!(github=~/^https:\/\/github\.com\/[a-zA-Z0-9\-]{1,39}$/)
   end
+
+  #Сделал сеттеры приватными для контактов для запрета изменения контактов кроме метода set_contacts
+  def telegram=(telegram)
+    if !valid_telegram?(telegram)
+      raise ArgumentError, "Invalid Telegram username"
+    end
+    @telegram = telegram
+  end
+
+  def github=(github)
+    if !valid_github?(github)
+      raise ArgumentError, "Invalid GitHub profile URL"
+    end
+    @github = github
+  end
+
+  def email=(email)
+    if !valid_email?(email)
+      raise ArgumentError, "Invalid email format"
+    end
+    @email = email
+  end
+
+  def phone=(phone)
+    if !valid_phone?(phone)
+      raise  ArgumentError, "Not valid phone number"
+    end 
+    @phone = phone
+  end
+
 end
