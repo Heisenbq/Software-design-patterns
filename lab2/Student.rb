@@ -36,16 +36,32 @@ class Student
   end
   
   def set_contacts(contacts)
-    self.telegram = contacts[:telegram]
-    self.email = contacts[:email]
-    self.github = contacts[:github]
-    self.phone = contacts[:phone]
+    if !valid_telegram?(contacts[:telegram])
+      raise ArgumentError, "Invalid Telegram username"
+    end
+    @telegram = contacts[:telegram]
+
+    if !valid_github?(contacts[:github])
+      raise ArgumentError, "Invalid GitHub profile URL"
+    end
+    @github = contacts[:github]
+
+    if !valid_email?(contacts[:email])
+      raise ArgumentError, "Invalid email format"
+    end
+    @email = contacts[:email]
+
+    if !valid_phone?(contacts[:phone])
+      raise  ArgumentError, "Not valid phone number"
+    end 
+    @phone = contacts[:phone]
   end
+
   def to_s
     " ID: #{@id}\n ФИО: #{@surname} #{@first_name} #{@last_name}\n Телефон: #{@phone}\n Телеграм: #{@telegram}\n Почта: #{@email}\n Git: #{@github}"
   end
 
-  private 
+  private
 
   def valid_phone?(phone)
     !!(phone =~ /^(?:\+7|8)[\s-]?(?:\(?\d{3}\)?[\s-]?)\d{3}[\s-]?\d{2}[\s-]?\d{2}$/)
@@ -61,35 +77,6 @@ class Student
   end
   def valid_github?(github)
     !!(github=~/^https:\/\/github\.com\/[a-zA-Z0-9\-]{1,39}$/)
-  end
-
-  #Сделал сеттеры приватными для контактов для запрета изменения контактов кроме метода set_contacts
-  def telegram=(telegram)
-    if !valid_telegram?(telegram)
-      raise ArgumentError, "Invalid Telegram username"
-    end
-    @telegram = telegram
-  end
-
-  def github=(github)
-    if !valid_github?(github)
-      raise ArgumentError, "Invalid GitHub profile URL"
-    end
-    @github = github
-  end
-
-  def email=(email)
-    if !valid_email?(email)
-      raise ArgumentError, "Invalid email format"
-    end
-    @email = email
-  end
-
-  def phone=(phone)
-    if !valid_phone?(phone)
-      raise  ArgumentError, "Not valid phone number"
-    end 
-    @phone = phone
   end
 
 end
