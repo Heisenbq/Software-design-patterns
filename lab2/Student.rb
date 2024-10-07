@@ -36,22 +36,23 @@ class Student
   end
   
   def set_contacts(contacts)
-    if !valid_telegram?(contacts[:telegram])
+
+    if !valid_telegram?(contacts[:telegram]) && contacts[:telegram]
       raise ArgumentError, "Invalid Telegram username"
     end
     @telegram = contacts[:telegram]
 
-    if !valid_github?(contacts[:github])
+    if !valid_github?(contacts[:github]) && contacts[:github]
       raise ArgumentError, "Invalid GitHub profile URL"
     end
     @github = contacts[:github]
 
-    if !valid_email?(contacts[:email])
+    if !valid_email?(contacts[:email]) && contacts[:email]
       raise ArgumentError, "Invalid email format"
     end
-    @email = contacts[:email]
+    @email = contacts[:email] 
 
-    if !valid_phone?(contacts[:phone])
+    if !valid_phone?(contacts[:phone]) && contacts[:phone]
       raise  ArgumentError, "Not valid phone number"
     end 
     @phone = contacts[:phone]
@@ -61,7 +62,21 @@ class Student
     " ID: #{@id}\n ФИО: #{@surname} #{@first_name} #{@last_name}\n Телефон: #{@phone}\n Телеграм: #{@telegram}\n Почта: #{@email}\n Git: #{@github}"
   end
 
-  private
+  def get_info
+    " ФИО: #{@surname} #{@first_name[0]}.#{@last_name[0]}.\n Git: #{@github}\n #{get_any_contact}"
+  end
+
+  def get_any_contact
+    if telegram 
+      "telegram: #{@telegram}"
+    elsif email
+      "telegram: #{@email}"
+    elsif phone
+      "phone: #{@phone}"
+    else 
+      "info about contacts is empty"
+    end
+  end
 
   def valid_phone?(phone)
     !!(phone =~ /^(?:\+7|8)[\s-]?(?:\(?\d{3}\)?[\s-]?)\d{3}[\s-]?\d{2}[\s-]?\d{2}$/)
