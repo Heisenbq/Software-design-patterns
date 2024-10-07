@@ -63,7 +63,11 @@ class Student
   end
 
   def get_info
-    " ФИО: #{@surname} #{@first_name[0]}.#{@last_name[0]}.\n Git: #{@github}\n #{get_any_contact}"
+    " ФИО: #{get_fullname_info}\n Git: #{@github}\n #{get_any_contact}"
+  end
+
+  def get_fullname_info
+    "#{@surname} #{@first_name[0]}.#{@last_name[0]}."
   end
 
   def get_any_contact
@@ -77,6 +81,8 @@ class Student
       "info about contacts is empty"
     end
   end
+
+  private
 
   def valid_phone?(phone)
     !!(phone =~ /^(?:\+7|8)[\s-]?(?:\(?\d{3}\)?[\s-]?)\d{3}[\s-]?\d{2}[\s-]?\d{2}$/)
