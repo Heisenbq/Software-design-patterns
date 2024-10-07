@@ -1,6 +1,7 @@
 require './Student.rb'
-class Student_short
-  attr_reader :contact, :github, :id, :surname_initials
+require './Person.rb'
+class Student_short < Person
+  attr_reader :contact, :surname_initials
 
   def self.create_by_student(student)
     contact = student.get_any_contact
@@ -28,11 +29,14 @@ class Student_short
 
   def initialize(id,surname_initials,contact,github)
     @contact =contact
+    if !valid_github?(github) && github
+      raise ArgumentError, "Invalid GitHub profile URL"
+    end
     @github = github
     @id = id
     @surname_initials = surname_initials
   end
-
+  
   def to_s 
     " Id: #{@id}\n Contact: #{@contact}\n Github: #{@github}\n Surname and initials: #{@surname_initials}"
   end

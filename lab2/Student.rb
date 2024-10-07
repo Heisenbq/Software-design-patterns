@@ -1,5 +1,6 @@
-class Student
-  attr_reader :phone, :telegram, :email, :github, :id, :surname, :first_name, :last_name
+require './person.rb'
+class Student < Person
+  attr_reader :phone, :telegram, :email, :surname, :first_name, :last_name
   attr_writer  :id
     
   def initialize(args)
@@ -70,6 +71,7 @@ class Student
     "#{@surname} #{@first_name[0]}.#{@last_name[0]}."
   end
 
+
   def get_any_contact
     if telegram 
       "telegram: #{@telegram}"
@@ -96,8 +98,6 @@ class Student
   def valid_telegram?(telegram)
     !!(telegram=~/^@?[a-zA-Z0-9_]{5,32}$/)
   end
-  def valid_github?(github)
-    !!(github=~/^https:\/\/github\.com\/[a-zA-Z0-9\-]{1,39}$/)
-  end
+
 
 end
