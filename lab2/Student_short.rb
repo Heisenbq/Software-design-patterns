@@ -1,10 +1,11 @@
 require './Student.rb'
 require './Person.rb'
+require './Validator.rb'
 class Student_short < Person
   attr_reader :contact, :surname_initials
 
   def self.create_by_student(student)    
-    contact = student.get_any_contact
+    contact = student.get_any_contact.split(': ',2).last.lstrip
     github = student.github
     id = student.id
     surname_initials=student.get_fullname_info
@@ -13,18 +14,10 @@ class Student_short < Person
 
   def self.create_by_id_and_string(id,all_info) 
 
-    # Проверка строки на то подходит она или нет и для дальнейщего ее парсинга с помозью метода  match
-    regex = /ФИО:\s*(\w+)\s(\w)\.(\w)\.\s*Git:\s*(https?:\/\/\S+)\s*(phone:\s*\+?\d{1,3}\s?\d{1,4}\s?\d{1,4}\s?\d{1,4}|telegram:\s*@\w+|email:\s*[\w+\-.]+@[a-z\d\-.]+\.[a-z]+)/i
-    @id = id
-    if match = all_info.match(regex)
-      surname_initials = match[1] + " " + match[2] + "." + match[3] + "."
-      github = match[4]
-      contact = match[5]
-      new(id,surname_initials,contact,github)
-    else 
-      raise ArgumentError, "not valid string required format : 'ФИО: Ivanov I.I. Git: https://github.com/Heisenbq phone/telegram/email: something'"
-    end
-
+    surname_initials = all_info.match(/ФИО:\s*([^,]+)/)&.captures&.first&.strip,
+    github = all_info.match(/Git:\s*([^,]+)/)&.captures&.first&.strip,
+    contact = all_info.match(/phone\/telegram\/email:\s*(.+)/)&.captures&.first&.strip
+    new(id,surname_initials,contact,github)
   end
   
   def to_s 
@@ -33,10 +26,11 @@ class Student_short < Person
 
   private 
   def initialize(id,surname_initials,contact,github)
-
-
     @contact =contact
-    if !valid_github?(github) && github
+    if !Validator.valid_contact?(contact) && !contact == "info about contacts is empty"
+      raise ArgumentError, "Invalid contact format"
+    end
+    if !Validator.valid_github?(github) && github
       raise ArgumentError, "Invalid GitHub profile URL"
     end
     @github = github

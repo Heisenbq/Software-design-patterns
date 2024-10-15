@@ -17,21 +17,21 @@ class Student < Person
   end
 
   def surname=(surname)
-    if !valid_name?(surname)
+    if !Validator.valid_name?(surname)
       raise ArgumentError, "Invalid surname format"
     end
     @surname = surname
   end
 
   def first_name=(first_name)
-    if !valid_name?(first_name)
+    if !Validator.valid_name?(first_name)
       raise ArgumentError, "Invalid first name format"
     end
     @first_name = first_name
   end
 
   def last_name=(last_name)
-    if !valid_name?(last_name)
+    if !Validator.valid_name?(last_name)
       raise ArgumentError, "Invalid last name format"
     end
     @last_name = last_name
@@ -70,6 +70,18 @@ class Student < Person
 
   def get_fullname_info
     "#{@surname} #{@first_name[0]}.#{@last_name[0]}."
+  end
+
+  def get_any_contact
+    if telegram 
+      "telegram: #{@telegram}"
+    elsif email
+      "email: #{@email}"
+    elsif phone
+      "phone: #{@phone}"
+    else 
+      "info about contacts is empty"
+    end
   end
 
 end

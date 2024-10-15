@@ -12,4 +12,12 @@ class Validator
   def self.valid_phone?(phone)
     !!(phone =~ /^(?:\+7|8)[\s-]?(?:\(?\d{3}\)?[\s-]?)\d{3}[\s-]?\d{2}[\s-]?\d{2}$/)
   end
+
+  def self.valid_contact?(contact)
+    valid_email?(contact) || valid_phone?(contact) || valid_telegram?(contact)
+  end
+
+  def self.valid_name?(name)
+    !!(name =~ /^[a-zA-Zа-яА-ЯёЁ]+$/)
+  end
 end
