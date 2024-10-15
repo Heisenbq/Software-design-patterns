@@ -1,4 +1,5 @@
-require './person.rb'
+require './Person.rb'
+require'./Validator.rb'
 class Student < Person
   attr_reader :phone, :telegram, :email, :surname, :first_name, :last_name
   attr_writer  :id
@@ -35,25 +36,25 @@ class Student < Person
     end
     @last_name = last_name
   end
-  
+
   def set_contacts(contacts)
 
-    if !valid_telegram?(contacts[:telegram]) && contacts[:telegram]
+    if !Validator.valid_telegram?(contacts[:telegram]) && contacts[:telegram]
       raise ArgumentError, "Invalid Telegram username"
     end
     @telegram = contacts[:telegram]
 
-    if !valid_github?(contacts[:github]) && contacts[:github]
+    if !Validator.valid_github?(contacts[:github]) && contacts[:github]
       raise ArgumentError, "Invalid GitHub profile URL"
     end
     @github = contacts[:github]
 
-    if !valid_email?(contacts[:email]) && contacts[:email]
+    if !Validator.valid_email?(contacts[:email]) && contacts[:email]
       raise ArgumentError, "Invalid email format"
     end
     @email = contacts[:email] 
 
-    if !valid_phone?(contacts[:phone]) && contacts[:phone]
+    if !Validator.valid_phone?(contacts[:phone]) && contacts[:phone]
       raise  ArgumentError, "Not valid phone number"
     end 
     @phone = contacts[:phone]
@@ -64,40 +65,11 @@ class Student < Person
   end
 
   def get_info
-    " ФИО: #{get_fullname_info}\n Git: #{@github}\n #{get_any_contact}"
+    " ФИО: #{get_fullname_info},\n Git: #{@github},\n #{get_any_contact}"
   end
 
   def get_fullname_info
     "#{@surname} #{@first_name[0]}.#{@last_name[0]}."
   end
-
-
-  def get_any_contact
-    if telegram 
-      "telegram: #{@telegram}"
-    elsif email
-      "telegram: #{@email}"
-    elsif phone
-      "phone: #{@phone}"
-    else 
-      "info about contacts is empty"
-    end
-  end
-
-  private
-
-  def valid_phone?(phone)
-    !!(phone =~ /^(?:\+7|8)[\s-]?(?:\(?\d{3}\)?[\s-]?)\d{3}[\s-]?\d{2}[\s-]?\d{2}$/)
-  end
-  def valid_name?(name)
-    !!(name =~ /^[a-zA-Zа-яА-ЯёЁ]+$/)
-  end
-  def valid_email?(email)
-    !!(email=~/^[\w+\-.]+@[a-z\d\-.]+\.[a-z]+$/i)
-  end
-  def valid_telegram?(telegram)
-    !!(telegram=~/^@?[a-zA-Z0-9_]{5,32}$/)
-  end
-
 
 end

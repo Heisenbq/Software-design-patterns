@@ -2,9 +2,16 @@ class Person
   attr_reader :github, :id
   
   protected
-
-  def valid_github?(github)
-    !!(github=~/^https:\/\/github\.com\/[a-zA-Z0-9\-]{1,39}$/)
+  def get_any_contact
+    if telegram 
+      "telegram: #{@telegram}"
+    elsif email
+      "email: #{@email}"
+    elsif phone
+      "phone: #{@phone}"
+    else 
+      "info about contacts is empty"
+    end
   end
 
 end
