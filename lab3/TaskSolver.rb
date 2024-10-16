@@ -21,4 +21,12 @@ class TaskSolver
     result = array[a..b].include?(array.max)
     yield (result) if block_given?
   end
+
+  #1.41
+  def self.average_of_modules(array)
+    sum = array.sum { |el| el.abs }
+    result = sum / array.size.to_f
+    yield (result) if block_given?
+  end
+
 end
