@@ -47,14 +47,15 @@ class Menu
   def self.perform_task(array)
     puts "Выберите какую задачу решить: "
     puts "1 - Дан целочисленный массив. Необходимо поменять местами минимальный и максимальный элементы массива."
-
+    puts "2 - Дан целочисленный массив и интервал a..b. Необходимо проверить наличие максимального элемента массива в этом интервале."
     choice = gets.chomp
     case choice
     when '1'
       TaskSolver.replace_max_min(array) {|result| puts "Результат: #{result}"}
-      # puts "результат: "
-      # puts TaskSolver.replace_max_min(array).to_s
+    when '2'
+      TaskSolver.max_el_in_range?(array) {|result| puts "Результат: #{result}"}
     end
+
   end
 
 end
