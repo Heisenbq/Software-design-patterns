@@ -1,5 +1,14 @@
 class TaskSolver
 
+  #1.5
+  def self.is_min(array)
+    puts "введите индекс который хотите првоерить на минимум: "
+    temp = gets.chomp.to_i
+    if temp >= array.size || temp < 0 then 
+      raise ArgumentError, "out of range of array"
+    end
+    yield (array[temp] == array.min) if block_given?
+  end
   #1.17
   def self.replace_max_min(array)
     max_index = array.find_index(array.max)
@@ -17,6 +26,9 @@ class TaskSolver
     a = gets.chomp.to_i
     puts "b = "
     b = gets.chomp.to_i
+    if a >=array.size || a < 0 || b >=array.size || b < 0 then
+      raise ArgumentError, "out of range of array"
+    end
     max_el = array.max
     result = array[a..b].include?(array.max)
     yield (result) if block_given?
