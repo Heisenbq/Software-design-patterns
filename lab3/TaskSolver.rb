@@ -29,4 +29,13 @@ class TaskSolver
     yield (result) if block_given?
   end
 
+  #1.53
+  def self.build_new_list(list)
+    sum = list.sum { |el| el.abs }
+    average = (sum / list.size).floor
+    max = list.max
+    new_list = Array((average+1)..(max-1))
+    yield (new_list) if block_given?
+  end
+
 end
