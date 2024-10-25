@@ -64,7 +64,7 @@ class Menu
     when '5'
       TaskSolver.is_min(array) {|result| puts "Результат: #{result}"}
     else 
-      "Задачи порд таким номером не существует"
+      "Задачи под таким номером не существует"
     end
 
   end
