@@ -1,22 +1,21 @@
 require './Student.rb'
 require './Person.rb'
-require './Validator.rb'
+require './StudentValidator.rb'
 class Student_short < Person
   attr_reader :contact, :surname_initials
 
   def self.create_by_student(student)    
-    contact = student.get_any_contact.split(': ',2).last.lstrip
+    contact = student.contact
     github = student.github
     id = student.id
-    surname_initials=student.get_fullname_info
+    surname_initials=student.surname_initials
     new(id,surname_initials,contact,github)
   end
 
   def self.create_by_id_and_string(id,all_info) 
-
-    surname_initials = all_info.match(/ФИО:\s*([^,]+)/)&.captures&.first&.strip,
-    github = all_info.match(/Git:\s*([^,]+)/)&.captures&.first&.strip,
+    github = all_info.match(/Git:\s*([^,]+)/)&.captures&.first&.strip
     contact = all_info.match(/phone\/telegram\/email:\s*(.+)/)&.captures&.first&.strip
+    surname_initials = all_info.match(/ФИО:\s*([^,]+)/)&.captures&.first&.strip
     new(id,surname_initials,contact,github)
   end
   
@@ -27,13 +26,10 @@ class Student_short < Person
   private 
   def initialize(id,surname_initials,contact,github)
     @contact =contact
-    if !Validator.valid_contact?(contact) && !contact == "info about contacts is empty"
+    if !StudentValidator.valid_contact?(contact) && !contact == "info about contacts is empty"
       raise ArgumentError, "Invalid contact format"
     end
-    if !Validator.valid_github?(github) && github
-      raise ArgumentError, "Invalid GitHub profile URL"
-    end
-    @github = github
+    self.github = github
     @id = id
     @surname_initials = surname_initials
   end

@@ -1,4 +1,4 @@
-class Validator
+class StudentValidator
   def self.valid_github?(github)
     !!(github=~/^https:\/\/github\.com\/[a-zA-Z0-9\-]{1,39}$/)
   end
