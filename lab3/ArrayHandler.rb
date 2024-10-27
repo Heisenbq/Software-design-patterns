@@ -45,5 +45,15 @@ class ArrayHandler
     max_pair.map {|el| el[1]}
   end
 
+  def each_slice(slice_len)
+    index = 0
+
+    while index < self.array.size
+      slice = self.array[index,slice_len]
+      yield(slice)
+      index += slice_len
+    end
+    nil
+  end
 
 end
