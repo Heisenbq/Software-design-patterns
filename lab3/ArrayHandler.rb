@@ -33,4 +33,10 @@ class ArrayHandler
     arr
   end
 
+  def sort_by
+    pairs = self.array.map {|element| [yield(element),element]}
+    sorted_pairs = pairs.sort {|a,b| a[0] <=> b[0]}
+    sorted_pairs.map {|element| element[1]}
+  end
+  
 end
