@@ -12,6 +12,7 @@ class ArrayHandler
         yield(el) if block_given?
       end
     end
+    nil
   end
 
   def inject(initial_value = nil)
@@ -39,9 +40,9 @@ class ArrayHandler
     sorted_pairs.map {|element| element[1]}
   end
 
-  def max_by(n)
+  def max_by(n = 1)
     pairs = self.array.map {|element| [yield(element),element]}
-    max_pair = pairs.max(2) {|a,b| a[0] <=> b[0]}
+    max_pair = pairs.max(n) {|a,b| a[0] <=> b[0]}
     max_pair.map {|el| el[1]}
   end
 
