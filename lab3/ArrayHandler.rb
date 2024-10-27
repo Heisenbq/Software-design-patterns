@@ -38,5 +38,12 @@ class ArrayHandler
     sorted_pairs = pairs.sort {|a,b| a[0] <=> b[0]}
     sorted_pairs.map {|element| element[1]}
   end
-  
+
+  def max_by(n)
+    pairs = self.array.map {|element| [yield(element),element]}
+    max_pair = pairs.max(2) {|a,b| a[0] <=> b[0]}
+    max_pair.map {|el| el[1]}
+  end
+
+
 end

@@ -4,7 +4,7 @@ require './ArrayHandler'
 
 # Menu.get_menu
 arr = ArrayHandler.new(['123', '22', '1234', '1', 'asd'])
-puts arr.sort_by {|num| num.size}
+puts arr.max_by(2) {|num| num.size}
 
 # ar = Array.new ([1,15,21])
 
