@@ -23,4 +23,14 @@ class ArrayHandler
     acc
   end
 
+  def reject
+    arr = Array.new
+    self.array.each do |el|
+      unless yield(el)
+        arr.append(el)
+      end
+    end
+    arr
+  end
+
 end
