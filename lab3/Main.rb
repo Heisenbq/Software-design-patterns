@@ -4,6 +4,10 @@ require './ArrayHandler'
 
 # Menu.get_menu
 arr = ArrayHandler.new([1,15,21])
-arr.cycle(2) do |element| 
-  puts element
-end
+s = arr.inject() {|acc,el| acc * el}
+puts s
+
+ar = Array.new ([1,15,21])
+
+ar.cycle(2) {|el| el+=1}
+puts ar
