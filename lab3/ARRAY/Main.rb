@@ -2,19 +2,19 @@ require './Menu.rb'
 require './ArrayHandler'
 # D:\3 курс\ruby projects\lab3\array.txt путь к файлу
 
-# Menu.get_menu
+ Menu.get_menu
 # arr = ArrayHandler.new(['123', '22', '1234', '1', 'asd'])
 # puts arr.max_by(2) {|num| num.size}
 
 
- arr = ArrayHandler.new([3,1,21,5,12])
-# arr.each_slice(2) {|ar| puts ar.inspect}
+#  arr = ArrayHandler.new([3,1,21,5,12])
+# # arr.each_slice(2) {|ar| puts ar.inspect}
 
-# arr = Array.new ([3,1,21,5,12])
+# # arr = Array.new ([3,1,21,5,12])
 
-res = []
-result = arr.max_by {|el| el}
-puts result.inspect
+# res = []
+# result = arr.max_by {|el| el}
+# puts result.inspect
 
 # ar = Array.new ([3,1,21,5,12])
 

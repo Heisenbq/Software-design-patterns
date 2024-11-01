@@ -95,9 +95,6 @@ end
 
 html_string = <<-HTML
 <html>
-  <head>
-    <title>Example</title>
-  </head>
   <body>
     <div class="container">
       <p id="paragraph">Hello, World!</p>
@@ -120,6 +117,6 @@ puts "\n\n"
 
 # tree.bfs {|el| puts el.name}
 
-# puts tree.root.children[0].children[0].name
+puts tree.root.children[0].children[0].children[1].name
 
 
