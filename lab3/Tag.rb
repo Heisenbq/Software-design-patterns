@@ -1,14 +1,14 @@
 class Tag 
   attr_accessor :name, :attributes, :children, :content
 
-  def initialize(name, attributes = {},children = [])
+  def initialize(name, attributes = {})
     self.name = name
     self.attributes = attributes
     self.children = []
   end
 
   def add_children(children) 
-    self.children.append(children)
+    self.children.append(children) if children.is_a?(Tag)
   end
 
   # return num
@@ -18,25 +18,27 @@ class Tag
 
   # return bool
   def has_children?
-    self.children.empty?
+    !self.children.empty?
   end
 
-  # return string
+  #return string
   def to_s(lvl = 0)
     tab = "  " * lvl
-    "#{tab}<#{name} #{attributes_to_s}>\n#{children_content(lvl+1)}\n#{tab}</#{name}> "
+    "#{tab}<#{name} #{attributes_to_s}>\n#{children_content(lvl+1)}\n#{tab}</#{name}>"
   end
 
+  
   private 
 
   def attributes_to_s
-    self.attributes.map {|key,value| "#{key} = \"#{value}\" "}.join(" ")
+    self.attributes.map {|key,value| "#{key} = \"#{value}\" "}.join('')
   end
 
   def children_content(lvl = 0)
-    # self.children.map(&:to_s).join
-    self.children.map {|el| el.to_s(lvl+1)}.join
+    self.children.map {|el| el.to_s(lvl+1)}.join("\n")
   end
+end
+
 # <body>
 #   <form action="/submit" method="post">
 #   <input type="text" name="username" required placeholder="Введите имя пользователя">
@@ -44,11 +46,52 @@ class Tag
 #   <button type="submit">Отправить</button>
 #   </form>
 # </body> 
-end
 
-tag = Tag.new("div",{type: "text", name: "username"})
-tagSlave1 = Tag.new("li",{type: "text", name: "username"})
-tagSlave2 = Tag.new("ul",{type: "text", name: "username"})
-tag.add_children(tagSlave1)
-tagSlave1.add_children(tagSlave2)
-puts tag
+
+
+
+# tag = Tag.new("div",{type: "text", name: "username"})
+# tagSlave1 = Tag.new("li",{type: "text", name: "username"})
+# tagSlave2 = Tag.new("ul",{type: "text", name: "username"})
+# tag.add_children(tagSlave1)
+# tagSlave1.add_children(tagSlave2)
+# puts tag
+# Create the root HTML tag
+
+# html = Tag.new("html")
+
+# # Create the head tag and add a title child
+# head = Tag.new("head")
+# title = Tag.new("title")
+# title.content = "Example"
+# head.add_children(title)
+
+# # Create the body tag and add its children
+# body = Tag.new("body")
+
+# # Create a div with a class attribute and add a paragraph and anchor tag as its children
+# div = Tag.new("div", { "class" => "container" })
+
+# # Create a paragraph tag with an id and set its content
+# p = Tag.new("p", { "id" => "paragraph" })
+# p.content = "Hello, World!"
+# div.add_children(p)
+
+# # Create an empty anchor tag and add it to the div
+# a = Tag.new("a")
+# div.add_children(a)
+
+# # Add the div to the body
+# body.add_children(div)
+
+# # Create an empty span tag and add it to the body
+# span = Tag.new("span")
+# body.add_children(span)
+
+# # Add head and body to the html root
+# html.add_children(head)
+# html.add_children(body)
+
+# puts html.children.size
+
+# puts html.to_s
