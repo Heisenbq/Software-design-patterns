@@ -1,3 +1,4 @@
+require 'date'
 class StudentValidator
   def self.valid_github?(github)
     !!(github=~/^https:\/\/github\.com\/[a-zA-Z0-9\-]{1,39}$/)
@@ -19,5 +20,10 @@ class StudentValidator
 
   def self.valid_name?(name)
     !!(name =~ /^[a-zA-Zа-яА-ЯёЁ]+$/)
+  end
+
+  def self.valid_dob?(dob)
+    # Проверяем, что дата соответствует формату ГГГГ-ММ-ДД
+    !!(dob =~ /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)
   end
 end

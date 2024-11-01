@@ -1,16 +1,26 @@
 require './Person.rb'
 require'./StudentValidator.rb'
+require 'date'
+
 class Student < Person
-  attr_reader :phone, :telegram, :email, :surname, :first_name, :last_name
+  attr_reader :phone, :telegram, :email, :surname, :first_name, :last_name, :dob
   attr_writer  :id
     
-  def initialize(args = {first_name:,surname:,last_name:,id:nil,github:nil,phone:nil,telegram:nil,email:nil})
+  def initialize(args = {first_name:,surname:,last_name:,id:nil,github:nil,phone:nil,telegram:nil,email:nil,dob:nil})
     @id = args[:id]
     self.surname = args[:surname]
     self.first_name = args[:first_name]
     self.last_name = args[:last_name]
     self.github = args[:github]
     set_contacts(email: args[:email],telegram: args[:telegram],phone: args[:phone])
+  end
+
+  def dob=(date)
+    begin
+      @dob = Date.parse(date.to_s)
+    rescue ArgumentError => e
+      puts "Ошибка при парсинге даты: #{e.message}"
+    end
   end
 
   def surname=(surname)
