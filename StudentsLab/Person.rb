@@ -9,4 +9,8 @@ class Person
     end
     @github = github
   end
+
+  def contact(){
+    
+  }
 end

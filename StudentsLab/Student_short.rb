@@ -3,6 +3,7 @@ require './Person.rb'
 require './StudentValidator.rb'
 class Student_short < Person
   attr_reader :contact, :surname_initials
+  private_class_method :new
 
   def self.create_by_student(student)    
     contact = student.contact
@@ -23,7 +24,6 @@ class Student_short < Person
     " Id: #{@id}\n Contact: #{@contact}\n Github: #{@github}\n Surname and initials: #{@surname_initials}"
   end
 
-  private 
   def initialize(id,surname_initials,contact,github)
     @contact =contact
     if !StudentValidator.valid_contact?(contact) && !contact == "info about contacts is empty"
