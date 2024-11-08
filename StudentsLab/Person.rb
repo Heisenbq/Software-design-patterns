@@ -10,7 +10,7 @@ class Person
     @github = github
   end
 
-  def contact(){
-    
-  }
+  def contact
+  end    
+  
 end

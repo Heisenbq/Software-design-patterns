@@ -3,6 +3,8 @@ require'./StudentValidator.rb'
 require 'date'
 
 class Student < Person
+  include Comparable
+
   attr_reader :phone, :telegram, :email, :surname, :first_name, :last_name, :dob
   attr_writer  :id
     
@@ -84,6 +86,16 @@ class Student < Person
     else 
       nil
     end
+  end
+
+
+  def <=>(other)
+    return nil unless other.is_a?(Student)  
+    @dob <=> other.dob  
+  end
+
+  def ==(other)
+    other.is_a?(Student) && @dob == other.dob  
   end
 
 end
