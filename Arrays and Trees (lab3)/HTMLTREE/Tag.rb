@@ -1,5 +1,5 @@
 class Tag 
-  attr_accessor :name, :attributes, :children, :content
+  attr_accessor :name, :attributes, :children
 
   def initialize(name, attributes = {})
     self.name = name
@@ -21,6 +21,10 @@ class Tag
     !self.children.empty?
   end
 
+  def show_tag
+    "<#{name} #{attributes_to_s}>"
+  end
+
   #return string
   def to_s(lvl = 0)
     tab = "  " * lvl
@@ -38,6 +42,15 @@ class Tag
     self.children.map {|el| el.to_s(lvl+1)}.join("\n")
   end
 end
+
+t = Tag.new('div',{'size:': '1'})
+m = Tag.new('p',{'size:': '2'})
+f = Tag.new('li',{'size:': '3'})
+s = Tag.new('ul',{'size:': '4'})
+t.add_children(m)
+t.add_children(f)
+m.add_children(s)
+puts t.to_s
 
 # <body>
 #   <form action="/submit" method="post">
