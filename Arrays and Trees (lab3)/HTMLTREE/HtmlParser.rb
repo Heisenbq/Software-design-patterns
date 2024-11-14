@@ -1,18 +1,32 @@
+# Выводим результат
+
+require "./Tag.rb"
 class HtmlParser
-  # Метод для парсинга HTML строки
+  # парсит html по сути в конце вернет самый главный тег 
   def self.parse(html)
     tags = []
     
-    # Регулярное выражение для поиска тегов и их атрибутов
-    html.scan(/<([a-zA-Z]+)([^>]*)>/) do |tag_name, attrs_string|
-      tag = { name: tag_name, attrs: parse_attrs(attrs_string) }
+    # Регулярное выражение для поиска тегов и их содержимого (включая вложенные теги)
+    html.scan(/<([a-zA-Z]+)([^>]*)>(.*?)<\/\1>/m) do |tag_name, attrs_string, inner_html|
+      # Создаем объект Tag для текущего тега
+      tag = Tag.new(tag_name, parse_attrs(attrs_string))
+      
+      # Парсим вложенные теги рекурсивно
+      tag.children = parse(inner_html)
+      
+      # Добавляем текущий тег в список тегов
       tags << tag
     end
     
+    # Если не было вложенных тегов, ищем самозакрывающиеся теги
+    html.scan(/<([a-zA-Z]+)([^>]*)\/>/) do |tag_name, attrs_string|
+      tags << Tag.new(tag_name, parse_attrs(attrs_string))
+    end
+
     tags
   end
 
-  # Метод для парсинга атрибутов тега (выводится в виде массив хешей где ключ -> имя тега, значение-> атрибуты (хэш ключ значение))
+  # Метод для парсинга атрибутов
   def self.parse_attrs(attrs_string)
     attrs = {}
     
@@ -25,20 +39,23 @@ class HtmlParser
   end
 end
 
-# Пример использования:
 html = <<~HTML
 <html>
   <body>
     <div class="container">
       <p id="paragraph"></p>
-      <a></a>
+      <a href="https://example.com"></a>
     </div>
-    <span></span>
+    <span class="highlight"></span>
   </body>
 </html>
 HTML
 
-parsed_tags = HtmlParser.parse(html)
-
+# Парсим HTML
+tags = HtmlParser.parse(html)
+puts tags[0]
 # Выводим результат
-puts parsed_tags.inspect
+# puts tags[0].children[0].children.size
+# tags.each do |tag|
+#   puts tag.to_s
+# end

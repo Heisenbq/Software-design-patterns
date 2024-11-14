@@ -28,13 +28,17 @@ class Tag
   #return string
   def to_s(lvl = 0)
     tab = "  " * lvl
-    "#{tab}<#{name} #{attributes_to_s}>\n#{children_content(lvl+1)}\n#{tab}</#{name}>"
+    if children.empty?
+      "#{tab}<#{name} #{attributes_to_s}></#{name}>"
+    else
+      "#{tab}<#{name} #{attributes_to_s}>\n#{children_content(lvl+1)}\n#{tab}</#{name}>"
+    end
   end
-
   
   private 
 
   def attributes_to_s
+    return '' if attributes.empty?
     self.attributes.map {|key,value| "#{key} = \"#{value}\" "}.join('')
   end
 
@@ -43,14 +47,14 @@ class Tag
   end
 end
 
-t = Tag.new('div',{'size:': '1'})
-m = Tag.new('p',{'size:': '2'})
-f = Tag.new('li',{'size:': '3'})
-s = Tag.new('ul',{'size:': '4'})
-t.add_children(m)
-t.add_children(f)
-m.add_children(s)
-puts t.to_s
+# t = Tag.new('div',{'size:': '1'})
+# m = Tag.new('p',{'size:': '2'})
+# f = Tag.new('li',{'size:': '3'})
+# s = Tag.new('ul',{'size:': '4'})
+# t.add_children(m)
+# t.add_children(f)
+# m.add_children(s)
+# puts t.to_s
 
 # <body>
 #   <form action="/submit" method="post">
