@@ -21,9 +21,9 @@ class Tag
     !self.children.empty?
   end
 
-  def show_tag
-    "<#{name} #{attributes_to_s}>"
-  end
+  # def show_tag
+  #   "<#{name} #{attributes_to_s}>"
+  # end
 
   #return string
   def to_s(lvl = 0)
@@ -56,59 +56,3 @@ end
 # m.add_children(s)
 # puts t.to_s
 
-# <body>
-#   <form action="/submit" method="post">
-#   <input type="text" name="username" required placeholder="Введите имя пользователя">
-#   <input type="password" name="password" required>
-#   <button type="submit">Отправить</button>
-#   </form>
-# </body> 
-
-
-
-
-# tag = Tag.new("div",{type: "text", name: "username"})
-# tagSlave1 = Tag.new("li",{type: "text", name: "username"})
-# tagSlave2 = Tag.new("ul",{type: "text", name: "username"})
-# tag.add_children(tagSlave1)
-# tagSlave1.add_children(tagSlave2)
-# puts tag
-# Create the root HTML tag
-
-# html = Tag.new("html")
-
-# # Create the head tag and add a title child
-# head = Tag.new("head")
-# title = Tag.new("title")
-# title.content = "Example"
-# head.add_children(title)
-
-# # Create the body tag and add its children
-# body = Tag.new("body")
-
-# # Create a div with a class attribute and add a paragraph and anchor tag as its children
-# div = Tag.new("div", { "class" => "container" })
-
-# # Create a paragraph tag with an id and set its content
-# p = Tag.new("p", { "id" => "paragraph" })
-# p.content = "Hello, World!"
-# div.add_children(p)
-
-# # Create an empty anchor tag and add it to the div
-# a = Tag.new("a")
-# div.add_children(a)
-
-# # Add the div to the body
-# body.add_children(div)
-
-# # Create an empty span tag and add it to the body
-# span = Tag.new("span")
-# body.add_children(span)
-
-# # Add head and body to the html root
-# html.add_children(head)
-# html.add_children(body)
-
-# puts html.children.size
-
-# puts html.to_s и1

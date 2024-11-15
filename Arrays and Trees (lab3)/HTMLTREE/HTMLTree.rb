@@ -1,61 +1,21 @@
-require "./Tag.rb"
+# Выводим результат
 
-class HTMLTree 
+require "./Tag.rb"
+class HtmlTree
+
   include Enumerable
 
-  attr_accessor :root
+  attr_reader :root
 
   def initialize(html_string)
-    @root = parse_html(html_string)
+    tags = HtmlTree.parse(html_string)
+    @root = tags[0]
   end
 
-  def parse_html(html_string)
-    tags = []
-    root_tag = nil
-    current_tag = nil
-  
-    # Регулярное выражение для тегов, атрибутов и самозакрывающихся тегов
-    tag_regex = /<(?<closing>\/)?(?<tag>\w+)(?<attributes>[^\/>]*)(?<self_closing>\/)?>/
-  
-    html_string.scan(tag_regex) do |closing, tag_name, attributes_str, self_closing|
-      if closing
-        # Закрывающий тег - проверяем соответствие со стеком
-        if tags.empty? || tags.last.name != tag_name
-          raise "Несоответствие тегов: закрывающий тег </#{tag_name}> не совпадает"
-        end
-        # Возвращаемся к родителю
-        current_tag = tags.pop
-      else
-        # Открывающий или самозакрывающийся тег
-        attributes = parse_attributes(attributes_str)
-        new_tag = Tag.new(tag_name, attributes)
-  
-        # Если текущий тег уже есть, добавляем новый как дочерний
-        if current_tag
-          current_tag.add_children(new_tag)
-        else
-          root_tag = new_tag
-        end
-  
-        # Если тег не самозакрывающийся, добавляем его в стек для последующей обработки
-        unless self_closing
-          tags.push(new_tag)
-          current_tag = new_tag
-        end
-      end
-    end
-  
-    root_tag
-  end
 
-  def parse_attributes(attributes_str)
-    attributes = {}
-    attributes_str.scan(/(\w+)="([^"]*)"/) do |key, value|
-      attributes[key] = value
-    end
-    attributes
+  def to_s
+    self.root.to_s
   end
-
 
   def dfs(node = @root, &block)
     yield node
@@ -63,7 +23,6 @@ class HTMLTree
       dfs(child, &block)
     end
   end
-
 
   def bfs(&block)
     queue = [@root]
@@ -77,46 +36,60 @@ class HTMLTree
   def each(&block)
     dfs(&block)
   end
+
+
+  private 
+  def self.parse(html)
+    tags = []
+    
+    # Регулярное выражение для поиска тегов и их содержимого (включая вложенные теги)
+    html.scan(/<([a-zA-Z]+)([^>]*)>(.*?)<\/\1>/m) do |tag_name, attrs_string, inner_html|
+      # Создаем объект Tag для текущего тега
+      tag = Tag.new(tag_name, parse_attrs(attrs_string))
+      
+      # Парсим вложенные теги рекурсивно
+      tag.children = parse(inner_html)
+      
+      # Добавляем текущий тег в список тегов
+      tags << tag
+    end
+    
+    # Если не было вложенных тегов, ищем самозакрывающиеся теги
+    html.scan(/<([a-zA-Z]+)([^>]*)\/>/) do |tag_name, attrs_string|
+      tags << Tag.new(tag_name, parse_attrs(attrs_string))
+    end
+    tags
+  end
+
+  # Метод для парсинга атрибутов
+  def self.parse_attrs(attrs_string)
+    attrs = {}
+    
+    # Регулярное выражение для парсинга атрибутов вида 'key="value"'
+    attrs_string.scan(/([a-zA-Z\-]+)="([^"]*)"/) do |key, value|
+      attrs[key] = value
+    end
+    
+    attrs
+  end
 end
 
-# html_string = <<-HTML
-# <html>
-#   <body>
-#     <div class="container">
-#       <p id="paragraph">Hello, World!</p>
-#     </div>
-#     <p></p>
-#   </body>
-
-#   <div type="text"></div>
-# </html>
-# HTML
-
-
-html_string = <<-HTML
+html = <<~HTML
 <html>
   <body>
     <div class="container">
-      <p id="paragraph">Hello, World!</p>
-      <a></a>
+      <p id="paragraph"></p>
+      <a href="https://example.com"></a>
     </div>
-    <span></span>
+    <span class="highlight"></span>
   </body>
 </html>
 HTML
 
-# Создаем дерево из HTML-строки
-tree = HTMLTree.new(html_string)
-# tree.dfs {|el| puts el}
-# Вывод дерева с табуляцией
-puts tree.root.to_s
-puts "\n\n"
+# Парсим HTML
+tree = HtmlTree.new(html)
+puts tree.to_s
 
-# tree.dfs {|el| puts el.name}
-# puts "\n\n"
-
-# tree.bfs {|el| puts el.name}
-
-puts tree.root.children[0].children[0].children[1].name
-
-
+tree.bfs do |tag|
+  puts tag.name
+end
