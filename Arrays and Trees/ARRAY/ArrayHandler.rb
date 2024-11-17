@@ -57,4 +57,9 @@ class ArrayHandler
     nil
   end
 
+  def to_s
+    self.array.each do |el|
+      puts el
+    end
+  end
 end

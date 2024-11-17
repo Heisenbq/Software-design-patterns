@@ -81,6 +81,7 @@ html = <<~HTML
       <p id="paragraph"></p>
       <a href="https://example.com"></a>
     </div>
+    <div></div>
     <span class="highlight"></span>
   </body>
 </html>
@@ -88,8 +89,10 @@ HTML
 
 # Парсим HTML
 tree = HtmlTree.new(html)
-puts tree.to_s
-
-tree.bfs do |tag|
-  puts tag.name
-end
+# puts tree.to_s
+# (tree.reject { |el| el.name == 'div'}).each {|el| puts el.name}
+a = tree.count {|el| el.name == 'div'}
+puts a
+# tree. do |tag|
+#   puts tag.name
+# end
