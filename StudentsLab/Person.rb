@@ -1,8 +1,8 @@
 require'./StudentValidator.rb'
 class Person
-  attr_reader :github, :id
+  attr_accessor :github, :id
   
-  protected
+  
   def github=(github)
     if !StudentValidator.valid_github?(github) && github
       raise ArgumentError, "Invalid GitHub profile URL"
@@ -10,6 +10,7 @@ class Person
     @github = github
   end
 
+  protected
   def contact
   end    
   

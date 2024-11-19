@@ -2,7 +2,7 @@ require './Student.rb'
 require './Person.rb'
 require './StudentValidator.rb'
 class Student_short < Person
-  attr_reader :contact, :surname_initials
+  attr_accessor :contact, :surname_initials
   private_class_method :new
 
   def self.create_by_student(student)    
