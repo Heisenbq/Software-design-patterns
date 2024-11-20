@@ -4,7 +4,7 @@ require 'json'
 
 class StudentListJSON
 
-  def read_from_file(path)
+  def self.read_from_file(path)
     json_data = File.read(path)
     students_data = JSON.parse(json_data)
     students = students_data.map do |student_data|
@@ -22,7 +22,12 @@ class StudentListJSON
     end
     students
   end
+  
+  def self.write_to_file(path, students)
+    json_data = JSON.pretty_generate(students.map(&:to_hash))
+    File.write(path,json_data)
+  end
 end
 
-a = StudentListJSON.new()
-puts a.read_from_file('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json')
+students = StudentListJSON.read_from_file('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json')
+StudentListJSON.write_to_file('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList1.json',students)

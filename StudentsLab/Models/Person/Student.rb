@@ -87,6 +87,20 @@ class Student < Person
       nil
     end
   end
+  
+  def to_hash
+    {
+      'phone' => @phone,
+      'telegram' => @telegram,
+      'email' => @email,
+      'surname' => @surname,
+      'first_name' => @first_name,
+      'last_name' => @last_name,
+      'dob' => @dob,
+      'id' => @id,
+      'github' => @github
+    }
+  end
 
 
   def <=>(other)
