@@ -1,5 +1,5 @@
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/BinaryTree/TreeNode.rb')
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Student.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student.rb')
 
 class BinaryTree
 	include Enumerable
