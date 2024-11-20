@@ -1,5 +1,7 @@
 class DataList
+
   def initialize(data)
+    raise ArgumentError, "Required instance of other class" unless check_object_type(data)
     @data = data
     @selected = []
   end
@@ -26,7 +28,6 @@ class DataList
   def get_data
     index = 0
     data = []
-
     selected = self.get_selected
     selected.each do |index|
       obj = @data[index]
@@ -34,6 +35,12 @@ class DataList
       data.append(row)
     end
     DataTable.new(data)
+  end
+
+  
+  def data=(data)
+    raise ArgumentError, "Required instance of other class" unless check_object_type(data)
+    @data = data
   end
 
   private
@@ -45,6 +52,11 @@ class DataList
   def get_names_of_attributes_of_object
     raise NotImplementedError, 'Not implemented'
   end
+
+  def check_object_type(obj)
+    raise NotImplementedError, 'Not implemented'
+  end
+
 
   attr_accessor :data, :selected
 end
