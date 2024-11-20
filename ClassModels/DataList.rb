@@ -1,13 +1,18 @@
 class DataList
   def initialize(data)
     @data = data
+    @selected = []
   end
 
   def select(number)
-    raise IndexError, "Index out of bounds" if element && !@selected.include?(element.id)
-    element = @data[number-1]
-    @selected << element.id
-    @data[number-1]
+    element = @data[number]
+    unless element 
+      raise IndexError, "Index out of bounds"
+    end
+    if !@selected.include?(number)
+      @selected << number
+    end
+    @data[number]
   end
 
   def get_selected
@@ -22,7 +27,6 @@ class DataList
     raise NotImplementedError, 'Not implemented'
   end
 
-  private
 
   attr_accessor :data, :selected
 end
