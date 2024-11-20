@@ -1,5 +1,5 @@
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/DataList/DataList.rb')
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/DataList/DataTable.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataList.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataTable.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Student_short.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Student.rb')
 class DataListStudentShort < DataList
