@@ -1,6 +1,6 @@
 # CLASS DIAGRAMM
 ## 1 Diagramm
-![alt text](image.png)
+![alt text](ER_diaggram_only_student.png)
 
 ## 2 diagramm
-![alt text](image-1.png)
+![alt text](ER_diagramm_persons.png)

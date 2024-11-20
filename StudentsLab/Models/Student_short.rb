@@ -1,6 +1,6 @@
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Student.rb')
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Person.rb')
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/StudentValidator.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Student.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Validators/StudentValidator.rb')
 class Student_short < Person
   attr_accessor :contact, :surname_initials
   private_class_method :new

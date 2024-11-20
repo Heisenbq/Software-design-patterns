@@ -1,5 +1,5 @@
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Person.rb')
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/StudentValidator.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Validators/StudentValidator.rb')
 require 'date'
 
 class Student < Person
