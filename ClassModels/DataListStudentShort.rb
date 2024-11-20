@@ -3,21 +3,14 @@ require File.expand_path('D:/3курс/RubyProjects/ClassModels/DataTable.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Student_short.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Student.rb')
 class DataListStudentShort < DataList
-  def get_names
+  private
+  def get_names_of_attributes_of_object
     ['№', 'contact', 'github', 'surname_initials']
   end
 
-  def get_data
-    index = 0
-    data = []
-
-    selected = self.get_selected
-    selected.each do |index|
-      student_short = @data[index]
-      row = [index, student_short.contact, student_short.surname_initials,student_short.github]
-      data.append(row)
-    end
-    DataTable.new(data)
+  
+  def get_row_of_values_of_object(index,student_short)
+    [index, student_short.contact, student_short.surname_initials,student_short.github]
   end
 end
 # student1 = Student.new(first_name: "Akhmed",last_name: "Ruslanovich",surname: "Gadjiev", github: "https://github.com/Heisenbq")
@@ -29,5 +22,5 @@ end
 # list = DataListStudentShort.new([st1,st2])
 # list.select(0)
 # list.select(1)
-# puts list.get_data
+# puts list.get_names.inspect
 
