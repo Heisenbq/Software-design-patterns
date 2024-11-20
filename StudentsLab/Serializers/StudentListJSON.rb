@@ -3,6 +3,7 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/St
 require 'json'
 
 class StudentListJSON
+  
 
   def self.read_from_file(path)
     json_data = File.read(path)
@@ -27,7 +28,28 @@ class StudentListJSON
     json_data = JSON.pretty_generate(students.map(&:to_hash))
     File.write(path,json_data)
   end
+
+  def self.get_student_by_id(path,id)
+    json_data = File.read(path)
+    students_data = JSON.parse(json_data)
+    student = students_data.find do |student|
+      student['id'] == id
+    end
+
+    Student.new(
+        phone: student['phone'],
+        telegram: student['telegram'],
+        email: student['email'],
+        surname: student['surname'],
+        first_name: student['first_name'],
+        last_name: student['last_name'],
+        dob: student['dob'],
+        id: student['id'],
+        github: student['github']
+      )
+  end
 end
 
 students = StudentListJSON.read_from_file('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json')
 StudentListJSON.write_to_file('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList1.json',students)
+puts StudentListJSON.get_student_by_id('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList1.json',2)
