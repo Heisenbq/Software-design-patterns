@@ -19,7 +19,5 @@ class DataTable
   def to_s 
     @data.inspect
   end
-  private
-  attr_reader :data
 end
 

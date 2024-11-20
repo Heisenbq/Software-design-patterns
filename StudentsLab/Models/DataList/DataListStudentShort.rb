@@ -4,14 +4,13 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/St
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student.rb')
 class DataListStudentShort < DataList
 
-  private
-  def get_names_of_attributes_of_object
+  def get_names
     ['№', 'contact', 'github', 'surname_initials']
   end
 
-  
-  def get_row_of_values_of_object(index,student_short)
-    [index, student_short.contact, student_short.surname_initials,student_short.github]
+  private  
+  def get_row_of_values_of_object(student_short)
+    [student_short.contact, student_short.surname_initials,student_short.github]
   end
 
   def check_object_type(data)
