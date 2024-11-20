@@ -35,12 +35,19 @@ class DataList
     index = 0
     data = []
     selected = self.get_selected
-    selected.each do |index|
-      obj = @data[index]
+    @data.each do |obj|
       row = get_row_of_values_of_object(obj)
       row.unshift(index)
       data.append(row)
+      index+=1
     end
+
+    # selected.each do |index|
+    #   obj = @data[index]
+    #   row = get_row_of_values_of_object(obj)
+    #   row.unshift(index)
+    #   data.append(row)
+    # end
     DataTable.new(data)
   end
 
