@@ -1,4 +1,4 @@
-require'./StudentValidator.rb'
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/StudentValidator.rb')
 class Person
   attr_accessor :github, :id
   
