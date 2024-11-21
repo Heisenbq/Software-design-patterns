@@ -6,13 +6,8 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/Stud
 require 'yaml'
 
 class StudentListYAML < StudentListSerializer
-  private
-  def parse_to_student
-    yaml_data = File.read(@path)
-    students_data = YAML.load(yaml_data)
-  end
-  def parse_to_format
-    data = YAML.dump(@students.map(&:to_hash))
+  def initialize(path)
+    super(path,StudentSerializeYamlStrategy.new())
   end
 end
 

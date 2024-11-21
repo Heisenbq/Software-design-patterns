@@ -9,13 +9,15 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/Stud
 class StudentListSerializer
   attr_accessor :students
 
-  def initialize(path)
+  def initialize(path,serialize_strategy)
     @path = path
     @students
+    @serialize_strategy = serialize_strategy
   end
 
   def read_from_file
-    students_data = parse_to_student
+    data = File.read(@path)
+    students_data = parse_to_student(data)
     students = students_data.map do |student_data|
       Student.new(
         phone: student_data['phone'],
@@ -78,10 +80,10 @@ class StudentListSerializer
   end
 
   private 
-  def parse_to_student
-    raise NotImplementedError, 'Not implemented parse data'
+  def parse_to_student(data)
+    @serialize_strategy.parse_to_student(data)
   end
   def parse_to_format
-    raise NotImplementedError, 'Not implemented parse data'
+    @serialize_strategy.parse_to_format(@students)
   end
 end
