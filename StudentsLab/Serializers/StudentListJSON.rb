@@ -5,6 +5,8 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/
 require 'json'
 
 class StudentListJSON
+  attr_accessor :students
+
   def initialize(path)
     @path = path
     @students
@@ -81,16 +83,34 @@ class StudentListJSON
   end
 
   def add_student_in_list(student)
-    if !student.is_a?(Student) raise ArgumentError, "Expect the instance of Student"
-    max_id = @students.max_by {|el| el.id}
+    raise ArgumentError, "Expect the instance of Student" if !student.is_a?(Student)
+    max_id = (@students.max_by {|el| el.id}).id
     student.id = max_id + 1
     @students.append(student)
+  end
+
+  def change_by_id(id,student)
+    raise ArgumentError, "Expect the instance of Student" if !student.is_a?(Student)
+    stud = @students.find {|el| el.id == id}
+    if stud
+      student.id=id
+      stud = student
+    end
+    stud
+  end
+  def delete(id)
+    @students.delete_if {|el| el.id == id}
+  end
+  def get_student_count
+    @students.count
   end
 end
 
 a = StudentListJSON.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json')
+s = Student.new(surname: "Gadjiev",first_name: "Akhmed",last_name: "Ruslanovich", email: "asd@mail.ru",phone: "8-960-480-74-23",  id: 2, telegram: "@valid_username",  github: "https://github.com/Heisenbq")
 a.read_from_file
-puts a.sort_by_surname_initials
+# a.add_student_in_list(s)
+puts a.get_student_count
 # students = StudentListJSON.read_from_file('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json')
 # StudentListJSON.write_to_file('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList1.json',students)
 # puts StudentListJSON.get_student_short_list('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList1.json',5,1).get_data
