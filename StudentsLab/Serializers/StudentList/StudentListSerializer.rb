@@ -2,6 +2,9 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/St
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataList.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataListStudentShort.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeStrategy.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeJsonStrategy.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeYamlStrategy.rb')
 
 class StudentListSerializer
   attr_accessor :students
