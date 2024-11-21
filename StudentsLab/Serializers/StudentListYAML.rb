@@ -2,9 +2,9 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/St
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataList.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataListStudentShort.rb')
-require 'json'
+require 'yaml'
 
-class StudentListJSON
+class StudentListYAML
   attr_accessor :students
 
   def initialize(path)
@@ -13,8 +13,8 @@ class StudentListJSON
   end
 
   def read_from_file
-    json_data = File.read(@path)
-    students_data = JSON.parse(json_data)
+    yaml_data = File.read(@path)
+    students_data = YAML.load(yaml_data)
     students = students_data.map do |student_data|
       Student.new(
         phone: student_data['phone'],
@@ -32,13 +32,13 @@ class StudentListJSON
   end
   
   def write_to_file
-    json_data = JSON.pretty_generate(@students.map(&:to_hash))
-    File.write(@path,json_data)
+    yaml_data = YAML.dump(@students.map(&:to_hash))
+    File.write(@path,yaml_data)
   end
 
   def get_student_by_id(id)
-    json_data = File.read(@path)
-    students_data = JSON.parse(json_data)
+    yaml_data = File.read(@path)
+    students_data = YAML.load(yaml_data)
     student = students_data.find do |student|
       student['id'] == id
     end
@@ -54,11 +54,12 @@ class StudentListJSON
         id: student['id'],
         github: student['github']
       )
+    nil
   end
 
   def get_student_short_list(amount_of_elems_on_page,page)
-    json_data = File.read(@path)
-    students_data = JSON.parse(json_data)
+    yaml_data = File.read(@path)
+    students_data = YAML.load(yaml_data)
     student_slice = students_data.each_slice(amount_of_elems_on_page).to_a
     student_short_array = []
     student_slice[page-1].each do |student|
@@ -106,13 +107,10 @@ class StudentListJSON
   end
 end
 
-# a = StudentListJSON.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json')
-# s = Student.new(surname: "Gadjiev",first_name: "Akhmed",last_name: "Ruslanovich", email: "asd@mail.ru",phone: "8-960-480-74-23",  id: 2, telegram: "@valid_username",  github: "https://github.com/Heisenbq")
-# a.read_from_file
-# a.add_student_in_list(s)
-# a.write_to_file
-# a.add_student_in_list(s)
+s = Student.new(surname: "Gadjiev",first_name: "Akhmed",last_name: "Ruslanovich", email: "asd@mail.ru",phone: "8-960-480-74-23",  id: 2, telegram: "@valid_username",  github: "https://github.com/Heisenbq")
 
-# students = StudentListJSON.read_from_file('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json')
-# StudentListJSON.write_to_file('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList1.json',students)
-# puts StudentListJSON.get_student_short_list('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList1.json',5,1).get_data
+a = StudentListYAML.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.yaml')
+a.read_from_file
+a.add_student_in_list(s)
+puts a.students
+a.write_to_file

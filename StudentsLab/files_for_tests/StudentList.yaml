@@ -1,0 +1,19 @@
+---
+- phone: 8-912-450-70-53
+  telegram: "@bandit"
+  email: student2@example.com
+  surname: RUTU
+  first_name: Andrew
+  last_name: Ars
+  dob:
+  id: 2
+  github: https://github.com/student2
+- phone: 8-960-480-74-23
+  telegram: "@valid_username"
+  email: student1@example.com
+  surname: Doe
+  first_name: John
+  last_name: Doe
+  dob:
+  id: 1
+  github: https://github.com/student1

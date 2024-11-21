@@ -36,10 +36,10 @@ class DataList
     data = []
     selected = self.get_selected
     @data.each do |obj|
+      index+=1
       row = get_row_of_values_of_object(obj)
       row.unshift(index)
       data.append(row)
-      index+=1
     end
 
     # selected.each do |index|
