@@ -2,9 +2,8 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/St
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataList.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataListStudentShort.rb')
-require 'yaml'
 
-class StudentListYAML
+class StudentListSerializer
   attr_accessor :students
 
   def initialize(path)
@@ -13,8 +12,7 @@ class StudentListYAML
   end
 
   def read_from_file
-    yaml_data = File.read(@path)
-    students_data = YAML.load(yaml_data)
+    students_data = parse_to_student
     students = students_data.map do |student_data|
       Student.new(
         phone: student_data['phone'],
@@ -32,49 +30,19 @@ class StudentListYAML
   end
   
   def write_to_file
-    yaml_data = YAML.dump(@students.map(&:to_hash))
-    File.write(@path,yaml_data)
+    data = parse_to_format
+    File.write(@path,data)
   end
 
   def get_student_by_id(id)
-    yaml_data = File.read(@path)
-    students_data = YAML.load(yaml_data)
-    student = students_data.find do |student|
-      student['id'] == id
-    end
-
-    Student.new(
-        phone: student['phone'],
-        telegram: student['telegram'],
-        email: student['email'],
-        surname: student['surname'],
-        first_name: student['first_name'],
-        last_name: student['last_name'],
-        dob: student['dob'],
-        id: student['id'],
-        github: student['github']
-      )
-    nil
+    @students.find {|el| el.id = id}
   end
 
   def get_student_short_list(amount_of_elems_on_page,page)
-    yaml_data = File.read(@path)
-    students_data = YAML.load(yaml_data)
-    student_slice = students_data.each_slice(amount_of_elems_on_page).to_a
+    students_slices = @students.each_slice(amount_of_elems_on_page).to_a
     student_short_array = []
-    student_slice[page-1].each do |student|
-      new_student = Student.new(
-        phone: student['phone'],
-        telegram: student['telegram'],
-        email: student['email'],
-        surname: student['surname'],
-        first_name: student['first_name'],
-        last_name: student['last_name'],
-        dob: student['dob'],
-        id: student['id'],
-        github: student['github']
-      )
-      student_short_array.append(Student_short.create_by_student(new_student))
+    students_slices[page-1].each do |student|
+      student_short_array.append(Student_short.create_by_student(student))
     end
     DataListStudentShort.new(student_short_array)
   end
@@ -105,12 +73,12 @@ class StudentListYAML
   def get_student_count
     @students.count
   end
+
+  private 
+  def parse_to_student
+    raise NotImplementedError, 'Not implemented parse data'
+  end
+  def parse_to_format
+    raise NotImplementedError, 'Not implemented parse data'
+  end
 end
-
-s = Student.new(surname: "Gadjiev",first_name: "Akhmed",last_name: "Ruslanovich", email: "asd@mail.ru",phone: "8-960-480-74-23",  id: 2, telegram: "@valid_username",  github: "https://github.com/Heisenbq")
-
-a = StudentListYAML.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.yaml')
-a.read_from_file
-a.add_student_in_list(s)
-puts a.students
-a.write_to_file

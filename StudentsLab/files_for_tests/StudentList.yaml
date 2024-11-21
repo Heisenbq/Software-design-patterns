@@ -17,3 +17,12 @@
   dob:
   id: 1
   github: https://github.com/student1
+- phone: 8-960-480-74-23
+  telegram: "@valid_username"
+  email: asd@mail.ru
+  surname: Gadjiev
+  first_name: Akhmed
+  last_name: Ruslanovich
+  dob:
+  id: 3
+  github: https://github.com/Heisenbq
