@@ -6,9 +6,24 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/
 require 'pg'
 
 class StudentRepository
+  private_class_method :new
+  @@instance = nil
+
+  private 
+
   def initialize(db_config)
     @connection = PG.connect(db_config)
   end
+
+  public 
+
+  def self.instance(db_config)
+    unless @@instance
+      @@instance = new(db_config)
+    end
+    @@instance  
+  end
+
   def get_student_by_id(id)
     result = @connection.exec_params('SELECT * FROM student WHERE id = $1', [id])
     result.each do |row|

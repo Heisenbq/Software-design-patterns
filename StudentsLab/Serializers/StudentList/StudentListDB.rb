@@ -11,7 +11,7 @@ require 'pg'
 
 class StudentListDB
   def initialize(db_config)
-    @student_repository = StudentRepository.new(db_config)
+    @student_repository = StudentRepository.instance(db_config)
   end
   def get_student_by_id(id)
     @student_repository.get_student_by_id(id)
@@ -36,10 +36,10 @@ end
 
 # Параметры подключения к PostgreSQL
 db_config = {
-  host: 'localhost',   # Адрес хоста (можно изменить, если PostgreSQL на другом сервере)
-  dbname: 'student',   # Название вашей базы данных
-  user: 'postgres',   # Имя пользователя
-  password: '2012'  # Пароль
+  host: 'localhost',  
+  dbname: 'student',  
+  user: 'postgres',   
+  password: '2012'  
 }
 
 st = StudentListDB.new(db_config)
