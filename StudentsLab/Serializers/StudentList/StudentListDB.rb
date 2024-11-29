@@ -36,6 +36,22 @@ class StudentListDB
     DataListStudentShort.new(student_short_array)
   end
 
+
+  def add_student_in_list(student)
+    raise ArgumentError, "Expect the instance of Student" if !student.is_a?(Student)
+    @connection.exec_params('INSERT INTO student (first_name, surname, last_name, email, telegram, phone, git, dob)
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8)', [student.first_name, student.surname, student.last_name, student.email, student.telegram, student.phone, student.github, student.dob])
+  end
+
+  def change_by_id(id,student)
+    raise ArgumentError, "Expect the instance of Student" if !student.is_a?(Student)
+    @connection.exec_params('UPDATE student 
+        SET first_name = $1, surname = $2, last_name = $3, email = $4, telegram = $5, phone = $6, git = $7, dob = $8 
+        WHERE id = $9', [student.first_name, student.surname, student.last_name, student.email, student.telegram, student.phone, student.github, student.dob,id])
+  end
+  def delete(id)
+    @connection.exec_params('DELETE FROM student WHERE id = $1', [student.id])
+  end
 end
 
 # Параметры подключения к PostgreSQL
@@ -51,4 +67,17 @@ conn = PG.connect(db_config)
 
 st = StudentListDB.new()
 st.connection = conn
-puts st.get_student_short_list(5,1).get_data
+# student_data = {
+#   "id" => "1",
+#   "first_name" => "John",
+#   "surname" => "Dosee",
+#   "last_name" => "Smith",
+#   "email" => "john.doe@example.com",
+#   "telegram" => "john_doe_telegram",
+#   "phone" => "8-800-535-30-30",
+#   "git" => "https://github.com/johndoe",
+#   "dob" => "1994-08-22"
+# }
+# student = Student.new(student_data)
+# puts st.add_student_in_list(student)
+puts st.get_student_short_list(6,1).get_data
