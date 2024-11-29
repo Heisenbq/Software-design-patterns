@@ -35,7 +35,7 @@ class StudentListSerializer
   end
   
   def write_to_file
-    data = parse_to_format
+    data = parse_to_format(@students)
     File.write(@path,data)
   end
 
@@ -83,7 +83,7 @@ class StudentListSerializer
   def parse_to_student(data)
     @serialize_strategy.parse_to_student(data)
   end
-  def parse_to_format
-    @serialize_strategy.parse_to_format(@students)
+  def parse_to_format(students)
+    @serialize_strategy.parse_to_format(students)
   end
 end
