@@ -9,6 +9,7 @@ class Student < Person
   attr_writer  :id
     
   def initialize(args = {first_name:,surname:,last_name:,id:nil,github:nil,phone:nil,telegram:nil,email:nil,dob:nil})
+    args = symbolize_keys(args)
     @id = args[:id]
     self.surname = args[:surname]
     self.first_name = args[:first_name]
@@ -112,4 +113,27 @@ class Student < Person
     other.is_a?(Student) && @dob == other.dob  
   end
 
+  private
+
+  # Преобразование строковых ключей в символы
+  def symbolize_keys(hash)
+    hash.each_with_object({}) do |(key, value), symbolized_hash|
+      symbolized_hash[key.to_sym] = value
+    end
+  end
+
 end
+
+# student_data = {
+#   "id" => "1",
+#   "first_name" => "John",
+#   "surname" => "Dosee",
+#   "last_name" => "Smith",
+#   "email" => "john.doe@example.com",
+#   "telegram" => "john_doe_telegram",
+#   "phone" => "8-800-535-30-30",
+#   "git" => "https://github.com/johndoe",
+#   "dob" => "1994-08-22"
+# }
+# student = Student.new(student_data)
+# puts student
