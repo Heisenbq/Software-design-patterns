@@ -4,7 +4,7 @@ require 'date'
 
 class Student < Person
   include Comparable
-
+  attr_accessor :phone, :telegram, :email, :surname, :first_name, :last_name, :dob
   attr_reader :phone, :telegram, :email, :surname, :first_name, :last_name, :dob
   attr_writer  :id
     

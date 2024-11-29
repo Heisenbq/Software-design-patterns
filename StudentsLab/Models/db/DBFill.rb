@@ -22,14 +22,9 @@ def execute_sql_from_file(conn, file_path)
     puts "Файл не найден: #{file_path}"
   end
 end
-# execute_sql_from_file(conn, 'D:/3курс/RubyProjects/StudentsLab/Models/db/student/StudentDDL.sql')
-# # Заполнение таблицы данными
-# execute_sql_from_file(conn, 'D:/3курс/RubyProjects/StudentsLab/Models/db/student/InsertScript.sql')
-result = conn.exec('SELECT * FROM student')
+execute_sql_from_file(conn, 'D:/3курс/RubyProjects/StudentsLab/Models/db/student/StudentDDL.sql')
+# Заполнение таблицы данными
+execute_sql_from_file(conn, 'D:/3курс/RubyProjects/StudentsLab/Models/db/student/InsertScript.sql')
 
-# Обрабатываем результат
-result.each do |row|
-  puts row # каждая строка результата - это хэш, например, { "column_name" => "value" }
-end
 # Закрытие соединения
 conn.close
