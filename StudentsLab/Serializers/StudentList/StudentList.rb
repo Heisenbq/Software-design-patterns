@@ -26,28 +26,29 @@ class StudentList
   end
 
   def add_student_in_list(student)
-    @student_list_adapter.add_student(student)
+    @student_list_adapter.add_student_in_list(student)
   end
 
   def change_by_id(id,student)
-    @student_list_adapter.update_student(id, student)
+    @student_list_adapter.update_student_in_list(id, student)
   end
   def delete(id)
-    @student_list_adapter.delete_student(id)
+    @student_list_adapter.delete_student_in_list(id)
   end
 end
 
-# s = Student.new(surname: "Gadjiev",first_name: "Akhmed",last_name: "Ruslanovich", email: "asd@mail.ru",phone: "8-960-480-74-23",  id: 2, telegram: "@valid_username",  github: "https://github.com/Heisenbq")
+# s = Student.new(surname: "GadjievA",first_name: "AkhmedA",last_name: "RuslanovichA", email: "asd1@mail.ru",phone: "8-960-480-74-33",  id: 2, telegram: "@valid1_username",  github: "https://github.com/Heisenbq1")
 
-# a = StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.yaml', StudentSerializeYamlStrategy.new())
+# a = StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json', StudentSerializeJsonStrategy.new())
 # b = StudentListSerializerAdapter.new(a)
-# db_config = {
-#   host: 'localhost',  
-#   dbname: 'student',  
-#   user: 'postgres',   
-#   password: '2012'  
-# }
-# b1 = StudentListDB.new(db_config)
-# c = StudentListDBAdapter.new(b1)
+
+# # db_config = {
+# #   host: 'localhost',  
+# #   dbname: 'student',  
+# #   user: 'postgres',   
+# #   password: '2012'  
+# # }
+# # b1 = StudentListDB.new(db_config)
+# # c = StudentListDBAdapter.new(b1)
 # d = StudentList.new(b)
-# puts d.get_student_by_id(2)
+# puts d.add_student_in_list(s)

@@ -61,6 +61,7 @@ class StudentListSerializer
     raise ArgumentError, "Expect the instance of Student" if !student.is_a?(Student)
     max_id = (@students.max_by {|el| el.id}).id
     student.id = max_id + 1
+    check_on_unique_constraint(student)
     @students.append(student)
   end
 
@@ -71,6 +72,7 @@ class StudentListSerializer
       student.id=id
       stud = student
     end
+    check_on_unique_constraint(student)
     stud
   end
   def delete(id)
@@ -87,10 +89,11 @@ class StudentListSerializer
   def parse_to_format(students)
     @serialize_strategy.parse_to_format(students)
   end
-end
-# s = Student.new(surname: "Gadjiev",first_name: "Akhmed",last_name: "Ruslanovich", email: "asd@mail.ru",phone: "8-960-480-74-23",  id: 2, telegram: "@valid_username",  github: "https://github.com/Heisenbq")
 
-# a = StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json', StudentSerializeJsonStrategy.new())
-# a.read_from_file
-# # a.add_student_in_list(s)
-# puts a.students.find {|el| el.id == 4 }
+  def check_on_unique_constraint(student)
+    if @students.any? { |s| s.phone == student.phone || s.github == student.github || s.email == student.email }
+      raise "Error: Student with the same phone, git or email already exists"
+    end
+  end
+
+end
