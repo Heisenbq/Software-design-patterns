@@ -5,7 +5,8 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeStrategy.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeJsonStrategy.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeYamlStrategy.rb')
-
+require 'yaml'
+require 'json'
 class StudentListSerializer
   attr_accessor :students
 
@@ -40,7 +41,7 @@ class StudentListSerializer
   end
 
   def get_student_by_id(id)
-    @students.find {|el| el.id = id}
+    @students.find {|el| el.id == id}
   end
 
   def get_student_short_list(amount_of_elems_on_page,page)
@@ -87,3 +88,9 @@ class StudentListSerializer
     @serialize_strategy.parse_to_format(students)
   end
 end
+# s = Student.new(surname: "Gadjiev",first_name: "Akhmed",last_name: "Ruslanovich", email: "asd@mail.ru",phone: "8-960-480-74-23",  id: 2, telegram: "@valid_username",  github: "https://github.com/Heisenbq")
+
+# a = StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json', StudentSerializeJsonStrategy.new())
+# a.read_from_file
+# # a.add_student_in_list(s)
+# puts a.students.find {|el| el.id == 4 }

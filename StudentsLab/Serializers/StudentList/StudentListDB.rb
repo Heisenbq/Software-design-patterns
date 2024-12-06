@@ -33,28 +33,3 @@ class StudentListDB
     @student_repository.delete_student(id)
   end
 end
-
-# Параметры подключения к PostgreSQL
-db_config = {
-  host: 'localhost',  
-  dbname: 'student',  
-  user: 'postgres',   
-  password: '2012'  
-}
-
-st = StudentListDB.new(db_config)
-# puts st.get_student_by_id(7)
-# student_data = {
-#   "id" => "1",
-#   "first_name" => "John",
-#   "surname" => "Dosee",
-#   "last_name" => "Smith",
-#   "email" => "john.doe@example.com",
-#   "telegram" => "john_doe_telegram",
-#   "phone" => "8-800-535-30-30",
-#   "git" => "https://github.com/johndoe",
-#   "dob" => "1994-08-22"
-# }
-# student = Student.new(student_data)
-# puts st.add_student_in_list(student)
-puts st.get_student_short_list(5,2).get_data

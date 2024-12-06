@@ -26,12 +26,11 @@ class StudentRepository
 
   def get_student_by_id(id)
     result = @connection.exec_params('SELECT * FROM student WHERE id = $1', [id])
+    st = nil
     result.each do |row|
-      puts row
       st = Student.new(row)
-      puts st
     end
-    
+    return st
   end
 
   def get_student_short_list(amount_of_elems_on_page,page)
