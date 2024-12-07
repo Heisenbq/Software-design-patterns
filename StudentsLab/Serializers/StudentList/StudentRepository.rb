@@ -63,4 +63,8 @@ class StudentRepository
   def delete(id)
     @connection.exec_params('DELETE FROM student WHERE id = $1', [student.id])
   end
+  def get_student_count
+    result = @connection.exec_params('SELECT COUNT(*) FROM student')
+    result[0]['count'].to_i
+  end
 end

@@ -9,7 +9,7 @@ require 'pg'
 
 
 
-class StudentListDB
+class StudentListDB < IStorageList
   def initialize(db_config)
     @student_repository = StudentRepository.instance(db_config)
   end
@@ -21,15 +21,17 @@ class StudentListDB
     @student_repository.get_student_short_list(amount_of_elems_on_page, page)
   end
 
-
   def add_student_in_list(student)
-    @student_repository.add_student(student)
+    @student_repository.add_student_in_list(student)
   end
 
   def change_by_id(id,student)
-    @student_repository.update_student(id, student)
+    @student_repository.change_by_id(id, student)
   end
   def delete(id)
-    @student_repository.delete_student(id)
+    @student_repository.delete(id)
+  end
+  def get_student_count
+    @student_repository.get_student_count
   end
 end

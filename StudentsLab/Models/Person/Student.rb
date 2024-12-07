@@ -123,6 +123,17 @@ class Student < Person
     end
   end
 
+  public
+
+  def same_contacts?(student)
+    unless student.is_a?(Student)
+      raise ArgumentError, "required the student"
+    end
+    if @phone == student.phone || @github == student.github || @email == student.email || @telegram = student.telegram
+      raise ArgumentError, "Error: Student with the same phone, git or email already exists"
+    end
+  end
+
 end
 
 # student_data = {

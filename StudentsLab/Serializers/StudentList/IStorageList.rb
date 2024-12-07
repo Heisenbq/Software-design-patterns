@@ -18,4 +18,7 @@ class IStorageList
   def delete(id)
     raise NotImplementedError, 'Not implemented'
   end
+  def get_student_count
+    raise NotImplementedError, 'Not implemented'
+  end
 end

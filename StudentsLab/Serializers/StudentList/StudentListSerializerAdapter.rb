@@ -33,4 +33,8 @@ class StudentListSerializerAdapter < IStorageList
     @student_list_serializer.delete(id)
     @student_list_serializer.write_to_file()
   end
+  def get_student_count
+    @student_list_serializer.read_from_file()
+    @student_list_serializer.get_student_count
+  end
 end

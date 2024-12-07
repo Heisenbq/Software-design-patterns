@@ -5,7 +5,6 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/Stud
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeYamlStrategy.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/StudentListSerializer.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/StudentListSerializerAdapter.rb')
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/StudentListDBAdapter.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/StudentListDB.rb')
 require 'yaml'
 require 'json'
@@ -35,20 +34,23 @@ class StudentList
   def delete(id)
     @student_list_adapter.delete_student_in_list(id)
   end
+  def get_student_count
+    @student_list_adapter.get_student_count
+  end
 end
 
-# s = Student.new(surname: "GadjievA",first_name: "AkhmedA",last_name: "RuslanovichA", email: "asd1@mail.ru",phone: "8-960-480-74-33",  id: 2, telegram: "@valid1_username",  github: "https://github.com/Heisenbq1")
+s = Student.new(surname: "GadjievA",first_name: "AkhmedA",last_name: "RuslanovichA", email: "asd2@mail.ru",phone: "8-960-480-84-33",  id: 2, telegram: "@valid2_username",  github: "https://github.com/Heisenbq2")
 
-# a = StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.json', StudentSerializeJsonStrategy.new())
-# b = StudentListSerializerAdapter.new(a)
+a = StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.yaml', StudentSerializeYamlStrategy.new())
+b = StudentListSerializerAdapter.new(a)
 
-# # db_config = {
-# #   host: 'localhost',  
-# #   dbname: 'student',  
-# #   user: 'postgres',   
-# #   password: '2012'  
-# # }
-# # b1 = StudentListDB.new(db_config)
-# # c = StudentListDBAdapter.new(b1)
-# d = StudentList.new(b)
-# puts d.add_student_in_list(s)
+# db_config = {
+#   host: 'localhost',  
+#   dbname: 'student',  
+#   user: 'postgres',   
+#   password: '2012'  
+# }
+# b1 = StudentListDB.new(db_config)
+# c = StudentListDB.new(b1)
+d = StudentList.new(b)
+puts d.get_student_count

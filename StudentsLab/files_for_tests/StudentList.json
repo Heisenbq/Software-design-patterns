@@ -75,5 +75,16 @@
     "dob": null,
     "id": 7,
     "github": "https://github.com/Heisenbq1"
+  },
+  {
+    "phone": "8-960-480-84-33",
+    "telegram": "@valid2_username",
+    "email": "asd2@mail.ru",
+    "surname": "GadjievA",
+    "first_name": "AkhmedA",
+    "last_name": "RuslanovichA",
+    "dob": null,
+    "id": 8,
+    "github": "https://github.com/Heisenbq2"
   }
 ]
