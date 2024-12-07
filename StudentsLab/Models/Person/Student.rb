@@ -14,7 +14,8 @@ class Student < Person
     self.surname = args[:surname]
     self.first_name = args[:first_name]
     self.last_name = args[:last_name]
-    self.github = args[:github]
+    # change on args[:git]
+    self.github = args[:github] 
     set_contacts(email: args[:email],telegram: args[:telegram],phone: args[:phone])
   end
 

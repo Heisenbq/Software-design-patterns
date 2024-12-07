@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="25.0.1">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="4279" dy="2574" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3404" dy="2106" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -63,7 +63,7 @@
           <mxGeometry y="112" width="200" height="26" as="geometry" />
         </mxCell>
         <mxCell id="INUwDgxH_tMxu924iD4P-17" value="StudentListSerializer" style="swimlane;fontStyle=2;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="-80" y="60" width="220" height="424" as="geometry">
+          <mxGeometry x="-70" y="32" width="220" height="450" as="geometry">
             <mxRectangle x="230" y="140" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -114,6 +114,9 @@
         </mxCell>
         <mxCell id="INUwDgxH_tMxu924iD4P-33" value="- parse_to_format(students)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="INUwDgxH_tMxu924iD4P-17">
           <mxGeometry y="398" width="220" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="INUwDgxH_tMxu924iD4P-272" value="- check_on_unique_constraint(student)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="INUwDgxH_tMxu924iD4P-17">
+          <mxGeometry y="424" width="220" height="26" as="geometry" />
         </mxCell>
         <mxCell id="INUwDgxH_tMxu924iD4P-44" value="StudentSerializeStrategy" style="swimlane;fontStyle=2;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="-490" y="180" width="220" height="112" as="geometry">
@@ -493,9 +496,9 @@
             <mxPoint x="354" y="755" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="INUwDgxH_tMxu924iD4P-213" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;entryX=0.829;entryY=0.005;entryDx=0;entryDy=0;exitX=0.716;exitY=1.049;exitDx=0;exitDy=0;edgeStyle=elbowEdgeStyle;exitPerimeter=0;elbow=vertical;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="INUwDgxH_tMxu924iD4P-33" target="INUwDgxH_tMxu924iD4P-157">
+        <mxCell id="INUwDgxH_tMxu924iD4P-213" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;entryX=0.829;entryY=0.005;entryDx=0;entryDy=0;edgeStyle=elbowEdgeStyle;elbow=vertical;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" target="INUwDgxH_tMxu924iD4P-157">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-220" y="566" as="sourcePoint" />
+            <mxPoint x="90" y="480" as="sourcePoint" />
             <mxPoint x="224" y="664" as="targetPoint" />
           </mxGeometry>
         </mxCell>
