@@ -31,7 +31,7 @@ class StudentListDB < IStorageList
   def delete(id)
     @student_repository.delete(id)
   end
-  def get_student_count
-    @student_repository.get_student_count
+  def get_student_count(filter = nil)
+    @student_repository.get_student_count(filter)
   end
 end

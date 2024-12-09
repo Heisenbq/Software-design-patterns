@@ -18,7 +18,7 @@ class IStorageList
   def delete(id)
     raise NotImplementedError, 'Not implemented'
   end
-  def get_student_count
+  def get_student_count(filter=nil)
     raise NotImplementedError, 'Not implemented'
   end
 end

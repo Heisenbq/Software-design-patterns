@@ -6,6 +6,10 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/Stud
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/StudentListSerializer.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/StudentListSerializerAdapter.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/StudentListDB.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Filter/AdditionalFilter.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Filter/FieldFilter.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Filter/Filter.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Filter/FilterDecorator.rb')
 require 'yaml'
 require 'json'
 class StudentList 
@@ -34,8 +38,8 @@ class StudentList
   def delete(id)
     @student_list_adapter.delete_student_in_list(id)
   end
-  def get_student_count
-    @student_list_adapter.get_student_count
+  def get_student_count(filter = nil)
+    @student_list_adapter.get_student_count(filter)
   end
 end
 
@@ -44,13 +48,22 @@ s = Student.new(surname: "GadjievA",first_name: "AkhmedA",last_name: "Ruslanovic
 a = StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.yaml', StudentSerializeYamlStrategy.new())
 b = StudentListSerializerAdapter.new(a)
 
-# db_config = {
-#   host: 'localhost',  
-#   dbname: 'student',  
-#   user: 'postgres',   
-#   password: '2012'  
-# }
-# b1 = StudentListDB.new(db_config)
-# c = StudentListDB.new(b1)
-d = StudentList.new(b)
-puts d.get_student_count
+db_config = {
+  host: 'localhost',  
+  dbname: 'student',  
+  user: 'postgres',   
+  password: '2012'  
+}
+b1 = StudentListDB.new(db_config)
+c = StudentListDB.new(b1)
+d = StudentList.new(c)
+# st = d.get_student_short_list(10,1).get_data
+
+# filter = FieldFilter.new()
+# filter.do_filter(st) {|el| el.get_element}
+mas = [s]
+filter = AdditionalFilter.new(AdditionalFilter.new(FieldFilter.new("first_name","John"),"surname","Doe"),"last_name","Smith")
+
+# puts filter.do_filter(mas) {|el| el.surname == "GadjievA"}
+# filter1 = AdditionalFilter.new(filter)
+puts d.get_student_count(filter)

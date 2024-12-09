@@ -5,6 +5,8 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeStrategy.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeJsonStrategy.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Strategy/StudentSerializeYamlStrategy.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Filter/Filter.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Filter/FilterDecorator.rb')
 require 'yaml'
 require 'json'
 class StudentListSerializer
@@ -79,7 +81,12 @@ class StudentListSerializer
   def delete(id)
     @students.delete_if {|el| el.id == id}
   end
-  def get_student_count
+  def get_student_count(filter=nil)
+    raise ArgumentError, "Expect the instance of Filter"  if !filter.is_a?(Filter) && filter!=nil
+    if filter !=nil
+      new_list = filter.do_filter(@students)
+      return new_list.count
+    end
     @students.count
   end
 

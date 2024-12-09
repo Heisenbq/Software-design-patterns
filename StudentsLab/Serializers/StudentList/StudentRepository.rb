@@ -3,6 +3,7 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/St
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataList.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataListStudentShort.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/Filter/Filter.rb')
 require 'pg'
 
 class StudentRepository
@@ -63,8 +64,19 @@ class StudentRepository
   def delete(id)
     @connection.exec_params('DELETE FROM student WHERE id = $1', [student.id])
   end
-  def get_student_count
-    result = @connection.exec_params('SELECT COUNT(*) FROM student')
-    result[0]['count'].to_i
+  def get_student_count(filter=nil)
+    raise ArgumentError, "Expect the instance of Filter"  if !filter.is_a?(Filter) && filter!=nil
+    # result = @connection.exec_params('SELECT COUNT(*) FROM student')
+    result = @connection.exec('SELECT * FROM student')
+    students = []
+    result.each do |row|
+      students.append(Student.new(row))
+    end
+    if filter !=nil
+      new_list = filter.do_filter(students) {|el| el.surname = "Gadjiev"}
+      return new_list.count
+    end
+    students.count
   end
+  
 end
