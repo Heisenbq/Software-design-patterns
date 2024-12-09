@@ -24,8 +24,8 @@ class StudentList
     @student_list_adapter.get_student_by_id(id)
   end
 
-  def get_student_short_list(amount_of_elems_on_page,page)
-    @student_list_adapter.get_student_short_list(amount_of_elems_on_page, page)
+  def get_student_short_list(amount_of_elems_on_page,page,filter = nil)
+    @student_list_adapter.get_student_short_list(amount_of_elems_on_page, page, filter)
   end
 
   def add_student_in_list(student)
@@ -62,8 +62,8 @@ d = StudentList.new(c)
 # filter = FieldFilter.new()
 # filter.do_filter(st) {|el| el.get_element}
 mas = [s]
-filter = AdditionalFilter.new(AdditionalFilter.new(FieldFilter.new("first_name","John"),"surname","Doe"),"last_name","Smith")
+filter = AdditionalFilter.new(AdditionalFilter.new(FieldFilter.new("first_name","John"),"surname","Doe"),"last_name","Smit1h")
 
 # puts filter.do_filter(mas) {|el| el.surname == "GadjievA"}
 # filter1 = AdditionalFilter.new(filter)
-puts d.get_student_count(filter)
+puts d.get_student_short_list(5,1,filter).get_data

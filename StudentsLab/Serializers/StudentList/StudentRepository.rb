@@ -34,16 +34,21 @@ class StudentRepository
     return st
   end
 
-  def get_student_short_list(amount_of_elems_on_page,page)
+  def get_student_short_list(amount_of_elems_on_page,page,filter = nil)
     result = @connection.exec('SELECT * FROM student')
     students = []
     result.each do |row|
       students.append(Student.new(row))
     end
+    if filter != nil 
+      students = filter.do_filter(students)
+    end
     students_slices = students.each_slice(amount_of_elems_on_page).to_a
     student_short_array = []
-    students_slices[page-1].each do |student|
-      student_short_array.append(Student_short.create_by_student(student))
+    if students_slices.count > 0
+      students_slices[page-1].each do |student|
+        student_short_array.append(Student_short.create_by_student(student))
+      end
     end
     DataListStudentShort.new(student_short_array)
   end
@@ -73,7 +78,7 @@ class StudentRepository
       students.append(Student.new(row))
     end
     if filter !=nil
-      new_list = filter.do_filter(students) {|el| el.surname = "Gadjiev"}
+      new_list = filter.do_filter(students) 
       return new_list.count
     end
     students.count

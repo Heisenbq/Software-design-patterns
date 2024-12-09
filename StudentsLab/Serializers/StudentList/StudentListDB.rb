@@ -17,8 +17,8 @@ class StudentListDB < IStorageList
     @student_repository.get_student_by_id(id)
   end
 
-  def get_student_short_list(amount_of_elems_on_page,page)
-    @student_repository.get_student_short_list(amount_of_elems_on_page, page)
+  def get_student_short_list(amount_of_elems_on_page,page,filter = nil)
+    @student_repository.get_student_short_list(amount_of_elems_on_page, page,filter)
   end
 
   def add_student_in_list(student)

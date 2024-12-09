@@ -46,11 +46,17 @@ class StudentListSerializer
     @students.find {|el| el.id == id}
   end
 
-  def get_student_short_list(amount_of_elems_on_page,page)
-    students_slices = @students.each_slice(amount_of_elems_on_page).to_a
+  def get_student_short_list(amount_of_elems_on_page,page,filter = nil)
+    filtered_students = @students
+    if filter != nil 
+      filtered_students = filter.do_filter(@students)
+    end
+    students_slices = filtered_students.each_slice(amount_of_elems_on_page).to_a
     student_short_array = []
-    students_slices[page-1].each do |student|
-      student_short_array.append(Student_short.create_by_student(student))
+    if students_slices.count > 0
+      students_slices[page-1].each do |student|
+        student_short_array.append(Student_short.create_by_student(student))
+      end
     end
     DataListStudentShort.new(student_short_array)
   end
