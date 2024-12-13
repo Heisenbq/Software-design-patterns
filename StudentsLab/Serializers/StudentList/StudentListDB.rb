@@ -4,6 +4,7 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/St
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataList.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataListStudentShort.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/StudentRepository.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/PGClient.rb')
 require 'pg'
 
 
@@ -11,7 +12,7 @@ require 'pg'
 
 class StudentListDB < IStorageList
   def initialize(db_config)
-    @student_repository = StudentRepository.instance(db_config)
+    @student_repository = StudentRepository.new(db_config)
   end
   def get_student_by_id(id)
     @student_repository.get_student_by_id(id)

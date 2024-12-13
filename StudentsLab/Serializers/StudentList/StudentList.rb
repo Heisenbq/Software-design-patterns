@@ -43,27 +43,26 @@ class StudentList
   end
 end
 
-s = Student.new(surname: "GadjievA",first_name: "AkhmedA",last_name: "RuslanovichA", email: "asd2@mail.ru",phone: "8-960-480-84-33",  id: 2, telegram: "@valid2_username",  github: "https://github.com/Heisenbq2")
+# # s = Student.new(surname: "GadjievA",first_name: "AkhmedA",last_name: "RuslanovichA", email: "asd2@mail.ru",phone: "8-960-480-84-33",  id: 2, telegram: "@valid2_username",  github: "https://github.com/Heisenbq2")
 
-a = StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.yaml', StudentSerializeYamlStrategy.new())
-b = StudentListSerializerAdapter.new(a)
+# # a = StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.yaml', StudentSerializeYamlStrategy.new())
+# # b = StudentListSerializerAdapter.new(a)
 
-db_config = {
-  host: 'localhost',  
-  dbname: 'student',  
-  user: 'postgres',   
-  password: '2012'  
-}
-b1 = StudentListDB.new(db_config)
-c = StudentListDB.new(b1)
-d = StudentList.new(c)
-# st = d.get_student_short_list(10,1).get_data
+# db_config = {
+#   host: 'localhost',  
+#   dbname: 'student',  
+#   user: 'postgres',   
+#   password: '2012'  
+# }
+# b = StudentListDB.new(db_config)
+# d = StudentList.new(b)
+# # st = d.get_student_short_list(10,1).get_data
+# puts d.get_student_short_list(10,1).get_data
+# # filter = FieldFilter.new()
+# # filter.do_filter(st) {|el| el.get_element}
+# # mas = [s]
+# # filter = AdditionalFilter.new(AdditionalFilter.new(FieldFilter.new("first_name","John"),"surname","Doe"),"last_name","Smit1h")
 
-# filter = FieldFilter.new()
-# filter.do_filter(st) {|el| el.get_element}
-mas = [s]
-filter = AdditionalFilter.new(AdditionalFilter.new(FieldFilter.new("first_name","John"),"surname","Doe"),"last_name","Smit1h")
-
-# puts filter.do_filter(mas) {|el| el.surname == "GadjievA"}
-# filter1 = AdditionalFilter.new(filter)
-puts d.get_student_short_list(5,1,filter).get_data
+# # puts filter.do_filter(mas) {|el| el.surname == "GadjievA"}
+# # filter1 = AdditionalFilter.new(filter)
+# # puts d.get_student_short_list(5,1,filter).get_data

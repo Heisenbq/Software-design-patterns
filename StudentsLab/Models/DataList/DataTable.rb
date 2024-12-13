@@ -1,4 +1,5 @@
 class DataTable
+  attr_accessor :data
   def initialize(data)
     unless data.is_a?(Array) && data.all? {|e| e.is_a?(Array)}
       raise ArgumentError, "Data is not an 2d Array"

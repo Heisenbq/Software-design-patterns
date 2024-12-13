@@ -1,6 +1,7 @@
 require 'fox16'
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student_short.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/controllers/StudentList.rb')
 include Fox
 
 require 'fox16'
@@ -10,6 +11,15 @@ include Fox
 class StudentListView < FXMainWindow
   def initialize(app)
     super(app, "Student Information Table", width: 800, height: 400)
+    db_config = {
+      host: 'localhost',  
+      dbname: 'student',  
+      user: 'postgres',   
+      password: '2012'  
+    }
+    b = StudentListDB.new(db_config)
+    @controller = StudentList.new(b)
+
     setup_layuot()
     setup_filter_frame()
     setup_table_frame()
@@ -156,31 +166,20 @@ class StudentListView < FXMainWindow
   def setup_table_frame()
     table = FXTable.new(@frame_right, opts: LAYOUT_FILL)
     # Устанавливаем количество строк и столбцов
-    table.setTableSize(5, 9)  # 5 строк, 9 столбцов (по количеству полей)
-  
-    # Устанавливаем заголовки для столбцов
-    table.setColumnText(0, "Surname")
-    table.setColumnText(1, "First Name")
-    table.setColumnText(2, "Last Name")
-    table.setColumnText(3, "Email")
-    table.setColumnText(4, "Phone")
-    table.setColumnText(5, "ID")
-    table.setColumnText(6, "Telegram")
-    table.setColumnText(7, "GitHub")
-    table.setColumnText(8, "DOB")
-  
+    table.setTableSize(7, 4) # Установить размер таблицы: 7 строк и 4 столбца
+
+    # Установка заголовков для столбцов
+    table.setColumnText(0, "ID")
+    table.setColumnText(1, "Telegram")
+    table.setColumnText(2, "Name")
+    table.setColumnText(3, "GitHub")
     # Пример данных студентов
-    students = [
-      ["Smith", "John", "A.", "john.smith@example.com", "123-456-7890", "S12345", "@john_smith", "github.com/john_smith", "01/01/2000"],
-      ["Doe", "Jane", "B.", "jane.doe@example.com", "987-654-3210", "S67890", "@jane_doe", "github.com/jane_doe", "02/02/1999"],
-      ["Taylor", "Alex", "C.", "alex.taylor@example.com", "555-123-4567", "S11223", "@alex_taylor", "github.com/alex_taylor", "03/03/1998"]
-      # Добавьте больше студентов по аналогии
-    ]
+    students = @controller.get_student_short_list(9,1).get_data.data
   
     # Заполнение таблицы данными студентов
     students.each_with_index do |student, row|
       student.each_with_index do |value, col|
-        table.setItemText(row, col, value)
+        table.setItemText(row, col, (value || "N/A").to_s) # Если значение nil, заменяем на "N/A"
       end
     end
   end
@@ -190,6 +189,10 @@ class StudentListView < FXMainWindow
     button_update = FXButton.new(@buttom_frame, "Обновить", opts: BUTTON_NORMAL | LAYOUT_CENTER_X)
     button_change = FXButton.new(@buttom_frame, "Изменить", opts: BUTTON_NORMAL | LAYOUT_CENTER_X)
     button_delete = FXButton.new(@buttom_frame, "Удалить", opts: BUTTON_NORMAL | LAYOUT_CENTER_X)
+  end
+
+  def get_students()
+    puts @controller.get_student_short_list(9,1).get_data
   end
 end
 

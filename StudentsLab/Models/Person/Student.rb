@@ -130,8 +130,9 @@ class Student < Person
       raise ArgumentError, "required the student"
     end
     if @phone == student.phone || @github == student.github || @email == student.email || @telegram = student.telegram
-      raise ArgumentError, "Error: Student with the same phone, git or email already exists"
+      return true
     end
+    return false
   end
 
 end
