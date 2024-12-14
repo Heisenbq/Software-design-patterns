@@ -111,7 +111,14 @@ class Student < Person
   end
 
   def ==(other)
-    other.is_a?(Student) && @dob == other.dob  
+    # other.is_a?(Student) && @dob == other.dob  
+    unless student.is_a?(Student)
+      raise ArgumentError, "required the student"
+    end
+    if @phone == student.phone || @github == student.github || @email == student.email || @telegram = student.telegram
+      return true
+    end
+    return false
   end
 
   private
@@ -125,15 +132,15 @@ class Student < Person
 
   public
 
-  def same_contacts?(student)
-    unless student.is_a?(Student)
-      raise ArgumentError, "required the student"
-    end
-    if @phone == student.phone || @github == student.github || @email == student.email || @telegram = student.telegram
-      return true
-    end
-    return false
-  end
+  # def same_contacts?(student)
+  #   unless student.is_a?(Student)
+  #     raise ArgumentError, "required the student"
+  #   end
+  #   if @phone == student.phone || @github == student.github || @email == student.email || @telegram = student.telegram
+  #     return true
+  #   end
+  #   return false
+  # end
 
 end
 

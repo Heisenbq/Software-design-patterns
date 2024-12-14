@@ -69,7 +69,7 @@ class StudentListSerializer
     raise ArgumentError, "Expect the instance of Student" if !student.is_a?(Student)
     max_id = (@students.max_by {|el| el.id}).id
     student.id = max_id + 1
-    if @students.any? { |el| el.same_contacts?(student) }
+    if @students.any? { |el| el == student }
       raise ArgumentError, "Пользователь уже имеется с такими контактами!"
     end
     # check_on_unique_constraint(student)
@@ -83,7 +83,9 @@ class StudentListSerializer
       student.id=id
       stud = student
     end
-    check_on_unique_constraint(student)
+    if @students.any? { |el| el == student }
+      raise ArgumentError, "Пользователь уже имеется с такими контактами!"
+    end
     stud
   end
   def delete(id)
