@@ -110,12 +110,12 @@ class Student < Person
     @dob <=> other.dob  
   end
 
-  def ==(other)
+  def ==(student)
     # other.is_a?(Student) && @dob == other.dob  
     unless student.is_a?(Student)
       raise ArgumentError, "required the student"
     end
-    if @phone == student.phone || @github == student.github || @email == student.email || @telegram = student.telegram
+    if @phone && student.phone && @phone == student.phone || @github && student.github && @github == student.github || @email && student.email && @email == student.email || @telegram && student.telegram && @telegram = student.telegram
       return true
     end
     return false
@@ -130,30 +130,5 @@ class Student < Person
     end
   end
 
-  public
-
-  # def same_contacts?(student)
-  #   unless student.is_a?(Student)
-  #     raise ArgumentError, "required the student"
-  #   end
-  #   if @phone == student.phone || @github == student.github || @email == student.email || @telegram = student.telegram
-  #     return true
-  #   end
-  #   return false
-  # end
-
 end
 
-# student_data = {
-#   "id" => "1",
-#   "first_name" => "John",
-#   "surname" => "Dosee",
-#   "last_name" => "Smith",
-#   "email" => "john.doe@example.com",
-#   "telegram" => "john_doe_telegram",
-#   "phone" => "8-800-535-30-30",
-#   "git" => "https://github.com/johndoe",
-#   "dob" => "1994-08-22"
-# }
-# student = Student.new(student_data)
-# puts student

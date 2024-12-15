@@ -1,6 +1,6 @@
 ---
 - phone: 8-912-450-70-53
-  telegram: "@bandit"
+  telegram:
   email: student2@example.com
   surname: RUTU
   first_name: Andrew
@@ -9,7 +9,7 @@
   id: 2
   github: https://github.com/student2
 - phone: 8-960-480-74-23
-  telegram: "@valid_username"
+  telegram:
   email: student1@example.com
   surname: Doe
   first_name: John
@@ -18,7 +18,7 @@
   id: 1
   github: https://github.com/student1
 - phone: 8-960-480-74-23
-  telegram: "@valid_username"
+  telegram:
   email: asd@mail.ru
   surname: Gadjiev
   first_name: Akhmed
@@ -26,39 +26,4 @@
   dob:
   id: 3
   github: https://github.com/Heisenbq
-- phone: 8-960-480-74-23
-  telegram: "@valid_username"
-  email: asd@mail.ru
-  surname: Gadjiev
-  first_name: Akhmed
-  last_name: Ruslanovich
-  dob:
-  id: 4
-  github: https://github.com/Heisenbq
-- phone: 8-960-480-74-23
-  telegram: "@valid_username"
-  email: asd@mail.ru
-  surname: Gadjiev
-  first_name: Akhmed
-  last_name: Ruslanovich
-  dob:
-  id: 5
-  github: https://github.com/Heisenbq
-- phone: 8-960-480-74-23
-  telegram: "@valid_username"
-  email: asd@mail.ru
-  surname: Gadjiev
-  first_name: Akhmed
-  last_name: Ruslanovich
-  dob:
-  id: 6
-  github: https://github.com/Heisenbq
-- phone: 8-960-480-74-23
-  telegram: "@valid_username"
-  email: asd@mail.ru
-  surname: Gadjiev
-  first_name: Akhmed
-  last_name: Ruslanovich
-  dob:
-  id: 7
-  github: https://github.com/Heisenbq
+
