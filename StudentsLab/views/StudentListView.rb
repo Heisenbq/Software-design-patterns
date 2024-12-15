@@ -1,7 +1,11 @@
 require 'fox16'
+# Dir[File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/*.rb')].each { |file| require file }
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Serializers/StudentList/StudentList.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/controllers/StudentListController.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student_short.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student.rb')
-require File.expand_path('D:/3курс/RubyProjects/StudentsLab/controllers/StudentList.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataList.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataTable.rb')
 include Fox
 
 require 'fox16'
@@ -11,19 +15,42 @@ include Fox
 class StudentListView < FXMainWindow
   def initialize(app)
     super(app, "Student Information Table", width: 800, height: 400)
-    db_config = {
-      host: 'localhost',  
-      dbname: 'student',  
-      user: 'postgres',   
-      password: '2012'  
-    }
-    b = StudentListDB.new(db_config)
-    @controller = StudentList.new(b)
-
     setup_layuot()
     setup_filter_frame()
     setup_table_frame()
     setup_crud_frame()
+
+    @controller = StudentListController.new(self)
+    @current_page = 1
+    @elems_on_page = 2
+    @controller.refresh_data(@elems_on_page,@current_page)
+
+    pagination_buttons()
+  end
+
+  def pagination_buttons
+    paginator_frame = FXHorizontalFrame.new(@frame_right, opts: LAYOUT_FILL)
+    buttonBack = FXButton.new(paginator_frame, "<<", nil, nil, 0, LAYOUT_CENTER_X)
+    amount_of_pages = (@controller.get_student_count.to_f / @elems_on_page.to_f).ceil
+    page_text = "#{@current_page}/#{amount_of_pages}"
+    pages_label = FXLabel.new(paginator_frame, page_text)
+    buttonForward = FXButton.new(paginator_frame, ">>", nil, nil, 0, LAYOUT_CENTER_X)
+    buttonBack.connect(SEL_COMMAND) do 
+      if (@current_page) == 1 
+        next
+      end
+      @current_page -=1
+      @controller.refresh_data(@elems_on_page,@current_page)
+      pages_label.text = "#{@current_page}/#{amount_of_pages}"
+    end
+    buttonForward.connect(SEL_COMMAND) do
+      if (@current_page) == amount_of_pages
+        next
+      end
+      @current_page += 1
+      @controller.refresh_data(@elems_on_page,@current_page)
+      pages_label.text = "#{@current_page}/#{amount_of_pages}"
+    end
   end
 
   def setup_layuot()
@@ -163,27 +190,6 @@ class StudentListView < FXMainWindow
     end
   end
 
-  def setup_table_frame()
-    table = FXTable.new(@frame_right, opts: LAYOUT_FILL)
-    # Устанавливаем количество строк и столбцов
-    table.setTableSize(7, 4) # Установить размер таблицы: 7 строк и 4 столбца
-
-    # Установка заголовков для столбцов
-    table.setColumnText(0, "ID")
-    table.setColumnText(1, "Telegram")
-    table.setColumnText(2, "Name")
-    table.setColumnText(3, "GitHub")
-    # Пример данных студентов
-    students = @controller.get_student_short_list(9,1).get_data.data
-  
-    # Заполнение таблицы данными студентов
-    students.each_with_index do |student, row|
-      student.each_with_index do |value, col|
-        table.setItemText(row, col, (value || "N/A").to_s) # Если значение nil, заменяем на "N/A"
-      end
-    end
-  end
-
   def setup_crud_frame()
     button_add = FXButton.new(@buttom_frame, "Добавить", opts: BUTTON_NORMAL | LAYOUT_CENTER_X)
     button_update = FXButton.new(@buttom_frame, "Обновить", opts: BUTTON_NORMAL | LAYOUT_CENTER_X)
@@ -191,9 +197,32 @@ class StudentListView < FXMainWindow
     button_delete = FXButton.new(@buttom_frame, "Удалить", opts: BUTTON_NORMAL | LAYOUT_CENTER_X)
   end
 
-  def get_students()
-    puts @controller.get_student_short_list(9,1).get_data
+  def setup_table_frame()
+    @table = FXTable.new(@frame_right, opts: LAYOUT_FILL)
   end
+
+  def set_table_params(column_names,entities_count)
+    # Устанавливаем количество строк и столбцов
+    @table.setTableSize(entities_count, column_names.size) # Установить размер таблицы: 7 строк и 4 столбца
+
+    # Установка заголовков для столбцов
+    i = 0
+    column_names.each do |column_name|
+      @table.setColumnText(i,column_name)
+      i += 1
+    end
+  end
+
+  def set_table_data(data_table)
+    students = data_table.data
+    # Заполнение таблицы данными студентов
+    students.each_with_index do |student, row|
+      student.each_with_index do |value, col|
+        @table.setItemText(row, col, (value || "N/A").to_s) # Если значение nil, заменяем на "N/A"
+      end
+    end
+  end
+
 end
 
 
