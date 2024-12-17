@@ -1,6 +1,6 @@
 # require File.expand_path('D:/3курс/RubyProjects/StudentsLab/views/StudentListView.rb')
 class DataList
-  attr_accessor :data
+  attr_reader :data
   def initialize(data)
     raise ArgumentError, "Required instance of other class" unless check_object_type(data)
     @data = data

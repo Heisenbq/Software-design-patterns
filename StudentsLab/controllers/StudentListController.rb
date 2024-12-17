@@ -11,17 +11,17 @@ class StudentListController
       password: '2012'  
     }
     @data_list_student_short = nil
-    # @student_list = StudentList.new(StudentListDB.new(db_config))
-    @student_list = StudentList.new(StudentListSerializerAdapter.new(StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.yaml', StudentSerializeYamlStrategy.new())))
+    @student_list = StudentList.new(StudentListDB.new(db_config))
+    # @student_list = StudentList.new(StudentListSerializerAdapter.new(StudentListSerializer.new('D:/3курс/RubyProjects/StudentsLab/files_for_tests/StudentList.yaml', StudentSerializeYamlStrategy.new())))
     @view = view
   end
   
   def refresh_data(elems_on_page,page)
     if @data_list_student_short == nil
       @data_list_student_short = @student_list.get_student_short_list(elems_on_page,page)
+      @data_list_student_short.add_observer(@view)
     end
     @data_list_student_short.data = @student_list.get_student_short_list(elems_on_page,page).data
-    @data_list_student_short.add_observer(@view)
     @data_list_student_short.notify
   end
 

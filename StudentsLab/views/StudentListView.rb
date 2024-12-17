@@ -6,15 +6,16 @@ require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/St
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/Person/Student.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataList.rb')
 require File.expand_path('D:/3курс/RubyProjects/StudentsLab/Models/DataList/DataTable.rb')
+require File.expand_path('D:/3курс/RubyProjects/StudentsLab/views/ObserverView.rb')
 include Fox
 
 require 'fox16'
 
 include Fox
 
-class StudentListView < FXMainWindow
+class StudentListView < ObserverView
   def initialize(app)
-    super(app, "Student Information Table", width: 800, height: 400)
+    super(app, "Student Information Table")
     setup_layuot()
     setup_filter_frame()
     setup_table_frame()
@@ -22,7 +23,7 @@ class StudentListView < FXMainWindow
 
     @controller = StudentListController.new(self)
     @current_page = 1
-    @elems_on_page = 2
+    @elems_on_page = 10
     @controller.refresh_data(@elems_on_page,@current_page)
 
     pagination_buttons()

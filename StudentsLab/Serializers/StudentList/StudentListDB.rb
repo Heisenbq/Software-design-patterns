@@ -43,15 +43,23 @@ class StudentListDB < IStorageList
 
   def add_student_in_list(student)
     raise ArgumentError, "Expect the instance of Student" if !student.is_a?(Student)
-    @client.exec_params('INSERT INTO student (first_name, surname, last_name, email, telegram, phone, git, dob)
-        VALUES ($1,$2,$3,$4,$5,$6,$7,$8)', [student.first_name, student.surname, student.last_name, student.email, student.telegram, student.phone, student.github, student.dob])
+    begin
+      @client.exec_params('INSERT INTO student (first_name, surname, last_name, email, telegram, phone, git, dob)
+          VALUES ($1,$2,$3,$4,$5,$6,$7,$8)', [student.first_name, student.surname, student.last_name, student.email, student.telegram, student.phone, student.github, student.dob])
+    rescue PG::UniqueViolation => e
+      raise ArgumentError, "Пользователь уже имеется с такими контактами!"
+    end
   end
 
   def change_by_id(id,student)
     raise ArgumentError, "Expect the instance of Student" if !student.is_a?(Student)
-    @client.exec_params('UPDATE student 
-        SET first_name = $1, surname = $2, last_name = $3, email = $4, telegram = $5, phone = $6, git = $7, dob = $8 
-        WHERE id = $9', [student.first_name, student.surname, student.last_name, student.email, student.telegram, student.phone, student.github, student.dob,id])
+    begin
+      @client.exec_params('UPDATE student 
+          SET first_name = $1, surname = $2, last_name = $3, email = $4, telegram = $5, phone = $6, git = $7, dob = $8 
+          WHERE id = $9', [student.first_name, student.surname, student.last_name, student.email, student.telegram, student.phone, student.github, student.dob,id])\
+    rescue PG::UniqueViolation => e
+      raise ArgumentError, "Пользователь уже имеется с такими контактами!"
+    end
   end
   def delete(id)
     @client.exec_params('DELETE FROM student WHERE id = $1', [student.id])
