@@ -22,6 +22,7 @@ class StudentListController
       @data_list_student_short.add_observer(@view)
     end
     @data_list_student_short.data = @student_list.get_student_short_list(elems_on_page,page).data
+    @data_list_student_short.start_index = @student_list.get_student_short_list(elems_on_page,page).start_index
     @data_list_student_short.notify
   end
 

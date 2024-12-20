@@ -1,11 +1,13 @@
 # require File.expand_path('D:/3курс/RubyProjects/StudentsLab/views/StudentListView.rb')
 class DataList
   attr_reader :data
-  def initialize(data)
+  attr_accessor :start_index
+  def initialize(data,start_index)
     raise ArgumentError, "Required instance of other class" unless check_object_type(data)
     @data = data
     @selected = []
     @observers = []
+    @start_index = start_index
   end
 
   def notify
@@ -44,7 +46,8 @@ class DataList
     raise NotImplementedError, 'Not implemented'
   end
 
-  def get_data(index = 0)
+  def get_data()
+    index = @start_index
     data = []
     selected = self.get_selected
     @data.each do |obj|

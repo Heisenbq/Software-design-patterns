@@ -23,7 +23,7 @@ class StudentListView < ObserverView
 
     @controller = StudentListController.new(self)
     @current_page = 1
-    @elems_on_page = 10
+    @elems_on_page = 4
     @controller.refresh_data(@elems_on_page,@current_page)
 
     pagination_buttons()

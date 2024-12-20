@@ -38,7 +38,8 @@ class StudentListDB < IStorageList
         student_short_array.append(Student_short.create_by_student(student))
       end
     end
-    DataListStudentShort.new(student_short_array)
+    start_index = amount_of_elems_on_page * (page - 1)
+    DataListStudentShort.new(student_short_array,start_index)
   end
 
   def add_student_in_list(student)
